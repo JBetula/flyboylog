@@ -1,14 +1,18 @@
-Version: '3.1'
+version: '3.1'
 
 services:
 
   mongo:
     image: mongo
-    container_name: database 
+    container_name: flyboylog_databas 
     restart: always
     ports:
       - 27017:27017
-    # volumes:
+    volumes:
+      - /home/jonas/Documents/Code/flyboylog/docker/org_logbook.csv:/tmp/org_logbook.csv
+      -  /home/jonas/Documents/Code/flyboylog/docker/init.sh:/tmp/init.sh
+    # command: bash -c "./tmp/init.sh"
+      # mongoimport -d database -c table_logbook --type csv --file org_logbook.csv --headerline
     # environment:
       # MONGO_INITDB_ROOT_USERNAME: root
       # MONGO_INITDB_ROOT_PASSWORD: root 
