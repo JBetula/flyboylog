@@ -40,10 +40,8 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
         flightNumber: flightNumber,
         depature: depature,
         offBlock: offBlockPlaceholder,
-        // offBlock: new Date(...offBlock),
         destination: destination,
         blocksOn: onBlockPlaceholder,
-        // blocksOn: new Date(...blocksOn),
         blocktime: blocktimePlaceholder,
         cmd: cmd,
         flightcrew: [...flightcrew],
@@ -53,6 +51,58 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
 }
 
 makeLogbookEntry([2022, 10, 10, 0, 0, 0], "SE-DEV", "NAX13", "UME", [2022, 10, 10, 12, 10, 30], "LLA", [2022, 10, 10, 15, 10, 30], "jojje",["bigboy","smallboy"])
+
+const fs = require('fs');
+const csv = require('csv-parser');
+
+const results = [];
+
+fs.createReadStream('./docker/org_logbook.csv')
+    .pipe(csv())
+    .on('headers', (headers) => {
+        // Rename the first column to "date"
+        headers[0] = 'date';
+        headers[1] = 'reg';
+        headers[2] = 'dep';
+        headers[3] = 'blockOff';
+        headers[4] = 'dest';
+        headers[5] = 'blockOn';
+    })
+    .on('data', (data) => {
+        // Push each row to the results array
+        results.push(data);
+    })
+    .on('end', () => {
+        for (let i = 0; i < results.length; i++){ 
+            const [day, month, year] = results[i].date.split('/').map(Number);
+            const dateArray = [year, month, day];
+
+            const depNumber = results[i].blockOff
+            const arrNumber = results[i].blockOn
+
+            const depFirstNumber = Math.floor(depNumber / 100);
+            const depSecondNumber = depNumber % 100;
+            const depTime = dateArray.concat([depFirstNumber, depSecondNumber,0]);
+
+            const arrFirstNumber = Math.floor(arrNumber / 100);
+            const arrSecondNumber = arrNumber % 100;
+            const arrTime = dateArray.concat([arrFirstNumber, arrSecondNumber,0]);
+
+            const [cmd, ...restOfCrew] = results[i].AllCrew.split(', ')
+
+            makeLogbookEntry(
+                dateArray,
+                results[i].reg,
+                results[i].flightNo,
+                results[i].dep,
+                depTime,
+                results[i].dest,
+                arrTime,
+                cmd,
+                restOfCrew,               
+            )
+        }
+    });
 
 const PORT = process.env.PORT || 3000;
 
