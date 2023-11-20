@@ -35,7 +35,7 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
         // Input in UTC
         // date: new Date(Date.UTC(...date)),
         // Input in Local
-        date: new Date(...date),
+        date: new Date(Date.UTC(...date)),
         reg: reg,
         flightNumber: flightNumber,
         depature: depature,
@@ -75,7 +75,7 @@ fs.createReadStream('./docker/org_logbook.csv')
     .on('end', () => {
         for (let i = 0; i < results.length; i++){ 
             const [day, month, year] = results[i].date.split('/').map(Number);
-            const dateArray = [year, month, day];
+            const dateArray = [year, (month-1), day];
 
             const depNumber = results[i].blockOff
             const arrNumber = results[i].blockOn
@@ -93,7 +93,7 @@ fs.createReadStream('./docker/org_logbook.csv')
             makeLogbookEntry(
                 dateArray,
                 results[i].reg,
-                results[i].flightNo,
+                results[i].FlightNo,
                 results[i].dep,
                 depTime,
                 results[i].dest,
