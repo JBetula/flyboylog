@@ -20,6 +20,7 @@ const logbookSchema = new mongoose.Schema({
     destination: String,
     blocksOn: Date,
     blocktime: Date,
+    blocktimeMinutes: Number,
     cmd: String,
     flightcrew: [{type: String}],
 })
@@ -30,6 +31,8 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
     const offBlockPlaceholder = new Date(...offBlock)
     const onBlockPlaceholder = new Date(...blocksOn)
     const blocktimePlaceholder = new Date(onBlockPlaceholder - offBlockPlaceholder)
+    const blocktimeMinutesPlaceholder = (blocktimePlaceholder.getUTCMinutes()+(blocktimePlaceholder.getUTCHours()*60))
+    debug("blocktimes in minutes :", blocktimeMinutesPlaceholder, " DATE:", blocktimePlaceholder)
 
     const entry = new LogbookEntry({
         // Input in UTC
@@ -43,6 +46,7 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
         destination: destination,
         blocksOn: onBlockPlaceholder,
         blocktime: blocktimePlaceholder,
+        blocktimeMinutes: blocktimeMinutesPlaceholder,
         cmd: cmd,
         flightcrew: [...flightcrew],
     })
