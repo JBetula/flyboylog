@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Flight Data</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2>Flight Data</h2>
+
+        <!-- Search bar and button -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by Commander (cmd)">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="searchButton">Search</button>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Registration</th>
+                    <th>Flight Number</th>
+                    <th>Departure</th>
+                    <th>Off Block</th>
+                    <th>Destination</th>
+                    <th>Blocks On</th>
+                    <th>Blocktime</th>
+                    <th>Commander</th>
+                    <th>Flight Crew</th>
+                </tr>
+            </thead>
+            <tbody id="flightDataBody">
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to make a POST request and populate the table with data
+        async function fetchData(searchTerm = '') {
+            console.log("in fetch func")
+            if (!searchTerm) return
+            try {
+                console.log("searchTerm =", searchTerm)
+                const response = await fetch('http://localhost:3000/api/logbook/' + searchTerm, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // body: JSON.stringify({ name: searchTerm }),
+                });
+
+                const data = await response.json();
+                populateTable(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Function to handle search
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            fetchData(searchTerm);
+        }
+
+        // Function to populate the table with data
+        function populateTable(data) {
+            const tableBody = document.getElementById('flightDataBody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            console.log(data);
+
+            // Loop through the response data and create rows
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${item.date.split('T')[0]}</td>
+                <td>${item.reg}</td>
+                <td>${item.flightNumber}</td>
+                <td>${item.depature}</td>
+                <td>${item.offBlock.split('T')[1].split('.')[0]}</td>
+                <td>${item.destination}</td>
+                <td>${item.blocksOn.split('T')[1].split('.')[0]}</td>
+                <td>${item.blocktime.split('T')[1].split('.')[0].split(':').slice(0, 2).join(':')}</td>
+                <td>${item.cmd}</td>
+                <td>${item.flightcrew.join(', ')}</td>
+            `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Call the function to initially populate the table with all data
+        fetchData();
+
+        // Attach an event listener to the search button
+        document.getElementById('searchButton').addEventListener('click', handleSearch);
+
+        // Attach an event listener to the Enter key in the search input
+        document.getElementById('searchInput').addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
