@@ -9,9 +9,11 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - /home/jonas/Documents/Code/flyboylog/docker/org_logbook.csv:/tmp/org_logbook.csv
+      # - /home/jonas/Documents/Code/flyboylog/docker/org_logbook.csv:/tmp/org_logbook.csv
       -  /home/jonas/Documents/Code/flyboylog/docker/init.sh:/tmp/init.sh
-    # command: bash -c "./tmp/init.sh"
+    # entrypoint: sh -c "tmp/init.sh"
+    # commad: sh -c exec docker-entrypoint.sh mongod
+    # command: sh -c "mongoimport -d database -c table_logbook --type csv --file org_logbook.csv --headerline; exec docker-entrypoint.sh mongod"
       # mongoimport -d database -c table_logbook --type csv --file org_logbook.csv --headerline
     # environment:
       # MONGO_INITDB_ROOT_USERNAME: root
