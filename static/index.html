@@ -20,6 +20,10 @@
                 <button class="btn btn-primary" type="button" id="searchButton">Search</button>
             </div>
         </div>
+        <!-- Display total hours row -->
+        <div class="mb-3">
+            <strong>Total Hours: </strong><span id="totalHours">Loading...</span>
+        </div>
 
         <table class="table">
             <thead>
@@ -63,11 +67,22 @@
                 console.error('Error fetching data:', error);
             }
         }
-
+        // Function to make a GET request for total hours
+        async function fetchTotalHours(searchTerm = '') {
+            try {
+                const response = await fetch(`http://localhost:3000/api/totalhours?name=${encodeURIComponent(searchTerm)}`);
+                const totalHours = await response.json();
+                console.log("totalhours=",totalHours)
+                document.getElementById('totalHours').textContent = totalHours[0].totalTime;
+            } catch (error) {
+                console.error('Error fetching total hours:', error);
+            }
+        }
         // Function to handle search
         function handleSearch() {
             const searchTerm = document.getElementById('searchInput').value;
-            fetchData(searchTerm);
+            fetchData(searchTerm)
+            fetchTotalHours(searchTerm);
         }
 
         // Function to populate the table with data
@@ -98,7 +113,7 @@
 
         // Call the function to initially populate the table with all data
         fetchData();
-
+        // fetchTotalHours();
         // Attach an event listener to the search button
         document.getElementById('searchButton').addEventListener('click', handleSearch);
 

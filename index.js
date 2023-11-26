@@ -157,16 +157,32 @@ app.get('/api/toplist', async (req, res) => {
 
 })
 
+app.get('/api/totalhours', async (req, res) => {
+    const name = req.query.name
+    const totalBoy = await LogbookEntry.aggregate([
+        {
+            $addFields:
+                { flightcrew: { $concatArrays: ['$flightcrew', ['$cmd']] } }
+        }, {
+            $unwind: '$flightcrew'
+        }, {
+            $group: { _id: "$flightcrew", totalTime: { $sum: "$blocktimeMinutes" } }
+        },
+          {
+             $match: {
+                 _id: { $regex: name, $options: 'i' }
+             }
+         },
+    ])
+    totalBoy[0].totalTime = Math.floor(totalBoy[0].totalTime / 60)
+    res.send(totalBoy)
+})
+
 // lägg till ett wildcard här direkt i url:en
 app.get('/api/logbook/:name', async (req, res) => {
-    debug("App get logbook")
-    debug(req.params)//TOM e. kanske ska vara så här
-    debug(req.params.name)//TOM e. kanske ska vara så här
-    // finns tillgänglig i req.query
     const name = req.params.name.toString()
     console.log(name)
     debug(name)
-    //flighcrew är en array därav elemMatch
     const bigboy = await LogbookEntry.find({
         $or: [
             { cmd: { $regex: name, $options: 'i' } },
@@ -174,7 +190,6 @@ app.get('/api/logbook/:name', async (req, res) => {
     }).sort({ blockOff: 1 })
     debug(bigboy.slice(0, 2))
     res.send(bigboy)
-
 })
 
 app.listen(PORT, () => {
