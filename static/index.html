@@ -15,26 +15,27 @@
 
         <!-- Search bar and button -->
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search by Commander (cmd)">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by Name">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="searchButton">Search</button>
             </div>
         </div>
         <!-- Display total hours row -->
         <div class="mb-3">
-            <strong>Total Hours: </strong><span id="totalHours">Loading...</span>
+            <strong>Total Hours: </strong><span id="totalHours"></span><br>
+            <strong>Sectors: </strong><span id="totalSectors"></span>
         </div>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Registration</th>
+                    <th>  Date  </th>
+                    <th>  Reg  </th>
                     <th>Flight Number</th>
                     <th>Departure</th>
-                    <th>Off Block</th>
+                    <th>OffBlock</th>
                     <th>Destination</th>
-                    <th>Blocks On</th>
+                    <th>BlocksOn</th>
                     <th>Blocktime</th>
                     <th>Commander</th>
                     <th>Flight Crew</th>
@@ -74,6 +75,7 @@
                 const totalHours = await response.json();
                 console.log("totalhours=",totalHours)
                 document.getElementById('totalHours').textContent = totalHours[0].totalTime;
+                document.getElementById('totalSectors').textContent = totalHours[0].sectors;
             } catch (error) {
                 console.error('Error fetching total hours:', error);
             }
