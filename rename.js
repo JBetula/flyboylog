@@ -1,25 +1,13 @@
+const chokidar = require('chokidar');
 const fs = require('fs');
 const path = require('path');
 
-const directoryPath = './downloads'; // Specify the path to the directory where the file is located
-const filePattern = /^Basic.*$/; // Specify the pattern to match the file
+const directoryPath = './downloads';
+const filePattern = /^Basic.*$/;
+const newFileName = 'indata.csv';
 
-fs.readdir(directoryPath, (err, files) => {
-    if (err) {
-        console.error('Error reading directory:', err);
-        return;
-    }
-
-    const matchingFiles = files.filter(file => filePattern.test(file));
-
-    if (matchingFiles.length === 0) {
-        console.log('No matching files found.');
-        return;
-    }
-
-    const oldFileName = matchingFiles[0]; // Assumes there's only one matching file
-    const newFileName = 'indata.csv';
-
+// Function to rename the file
+function renameFile(oldFileName) {
     const oldFilePath = path.join(directoryPath, oldFileName);
     const newFilePath = path.join(directoryPath, newFileName);
 
@@ -30,4 +18,18 @@ fs.readdir(directoryPath, (err, files) => {
             console.log(`File "${oldFileName}" renamed to "${newFileName}".`);
         }
     });
+}
+
+// Watch for changes in the directory using chokidar
+const watcher = chokidar.watch(directoryPath, { ignoreInitial: true });
+
+watcher.on('add', (filePath) => {
+    const filename = path.basename(filePath);
+
+    if (filePattern.test(filename)) {
+        console.log(`New matching file detected: ${filename}`);
+        renameFile(filename);
+    }
 });
+
+console.log('Watching for changes in the "downloads" folder...');
