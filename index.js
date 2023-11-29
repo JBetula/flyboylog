@@ -110,14 +110,14 @@ fs.createReadStream('./docker/org_logbook.csv')
             try {
                 // console.log("BIGBOY ",results[i])
                 const [day, month, year] = results[i].date.split('/').map(Number);
+                if(year.length > 4)
+                    year.slice(0,4)
                 if (isNaN(day) || isNaN(month) || isNaN(year))
                     continue
                 const dateArray = [year, (month - 1), day];
 
                 const depNumber = results[i].blockOff
                 const arrNumber = results[i].blockOn
-                // console.log(depNumber)
-                // console.log(arrNumber)
                 if (!depNumber || !arrNumber)
                     continue
                 const depFirstNumber = Math.floor(depNumber / 100);
