@@ -12,7 +12,7 @@
 
     <div class="container mt-5">
         <h2>Flight Data</h2>
-Sectors
+        Sectors
         <!-- Search bar and button -->
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="searchInput" placeholder="Search by Name">
@@ -29,8 +29,8 @@ Sectors
         <table class="table">
             <thead>
                 <tr>
-                    <th>  Date  </th>
-                    <th>  Reg  </th>
+                    <th> Date </th>
+                    <th> Reg </th>
                     <th>Flight Number</th>
                     <th>Departure</th>
                     <th>OffBlock</th>
@@ -48,22 +48,23 @@ Sectors
     </div>
 
     <script>
-        // Function to make a POST request and populate the table with data
+
         async function fetchData(searchTerm = '') {
-            console.log("in fetch func")
             if (!searchTerm) return
             try {
-                console.log("searchTerm =", searchTerm)
-                const response = await fetch('http://localhost:3000/api/logbook/' + searchTerm, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    // body: JSON.stringify({ name: searchTerm }),
+                const response = await fetch(`http://localhost:3000/api/logbook?name=${encodeURIComponent(searchTerm)}`, {
+                    method: 'GET'
                 });
-
                 const data = await response.json();
+                const len = data.length
                 populateTable(data);
+                let sum = 0
+                for (let index = 0; index < len; index++) {
+                    sum = sum + data[index].blocktimeMinutes;
+                }
+                sum = Math.floor(sum / 60)
+                document.getElementById('totalHours').textContent = sum;
+                document.getElementById('totalSectors').textContent = len;
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -73,7 +74,7 @@ Sectors
             try {
                 const response = await fetch(`http://localhost:3000/api/totalhours?name=${encodeURIComponent(searchTerm)}`);
                 const totalHours = await response.json();
-                console.log("totalhours=",totalHours)
+                console.log("totalhours=", totalHours)
                 document.getElementById('totalHours').textContent = totalHours[0].totalTime;
                 document.getElementById('totalSectors').textContent = totalHours[0].sectors;
             } catch (error) {
@@ -84,7 +85,6 @@ Sectors
         function handleSearch() {
             const searchTerm = document.getElementById('searchInput').value;
             fetchData(searchTerm)
-            fetchTotalHours(searchTerm);
         }
 
         // Function to populate the table with data
@@ -113,9 +113,6 @@ Sectors
             });
         }
 
-        // Call the function to initially populate the table with all data
-        fetchData();
-        // fetchTotalHours();
         // Attach an event listener to the search button
         document.getElementById('searchButton').addEventListener('click', handleSearch);
 
