@@ -61,7 +61,7 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
     try {
         const result = await entry.save()
     } catch (error) {
-        debug(entry, error.message)
+        // debug(entry, error.message)
     }
     // debug(result)
 }
@@ -88,7 +88,7 @@ function convertName(input) {
 fs.createReadStream('./docker/org_logbook.csv')
     .pipe(csv())
     .on('headers', (headers) => {
-        debug(headers)
+        // debug(headers)
         // Rename the first column to "date"
         headers[0] = 'date';
         headers[1] = 'reg';
@@ -96,22 +96,28 @@ fs.createReadStream('./docker/org_logbook.csv')
         headers[3] = 'blockOff';
         headers[4] = 'dest';
         headers[5] = 'blockOn';
-        debug(headers)
+        // debug(headers)
     })
     .on('data', (data) => {
         // Push each row to the results array
-        debug(data)
+        // debug(data)
         results.push(data);
     })
     .on('end', () => {
-        debug(results.length)
+        // debug(results.length)
         for (let i = 0; i < results.length; i++) {
-            debug("end", results[i].date)
+            // debug("end", results[i].date)
             try {
                 // console.log("BIGBOY ",results[i])
                 const [day, month, year] = results[i].date.split('/').map(Number);
+                console.log(year)
+                debug(year)
                 if(year.length > 4)
                     year.slice(0,4)
+                console.log(year)
+                debug(year)
+                debug(day)
+                debug(month)
                 if (isNaN(day) || isNaN(month) || isNaN(year))
                     continue
                 const dateArray = [year, (month - 1), day];
@@ -131,8 +137,8 @@ fs.createReadStream('./docker/org_logbook.csv')
                 const [cmdWrongFormat, ...restOfCrewWrongFormat] = results[i].AllCrew.split(', ').map(f => { return f.toUpperCase() })
                 const cmd = convertName(cmdWrongFormat)
                 const restOfCrew = restOfCrewWrongFormat.map(f => convertName(f))
-                debug(cmd)
-                debug("call")
+                // debug(cmd)
+                // debug("call")
                 makeLogbookEntry(
                     dateArray,
                     results[i].reg,
@@ -186,18 +192,18 @@ app.get('/api/totalhours', async (req, res) => {
     res.send(totalBoy)
 })
 
-// lägg till ett wildcard här direkt i url:en
-app.get('/api/logbook/:name', async (req, res) => {
-    const name = req.params.name.toString()
-    console.log(name)
-    debug(name)
-    const bigboy = await LogbookEntry.find({
+// new
+app.get('/api/logbook', async (req, res) => {
+    const name = req.query.name
+    const totalBoy = await LogbookEntry.find({
         $or: [
             { cmd: { $regex: name, $options: 'i' } },
             { flightcrew: { $elemMatch: { $regex: name, $options: 'i' } } }]
     }).sort({ blockOff: 1 })
-    debug(bigboy.slice(0, 2))
-    res.send(bigboy)
+    if (!totalBoy[0]) {
+        return
+    }
+    res.send(totalBoy)
 })
 
 app.listen(PORT, () => {
