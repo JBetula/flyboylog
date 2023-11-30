@@ -131,3 +131,4 @@ dist
 
 # logbook
 docker/org_logbook.csv
+startupscript.sh
