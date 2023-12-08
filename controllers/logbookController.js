@@ -30,34 +30,31 @@ const toplist = async (req, res) => {
     }
     debug(bigboy)
     res.json(bigboy)
-
 }
 
-// app.get('/api/totalhours', async (req, res) => {
-//     const name = req.query.name
-//     const totalBoy = await LogbookEntry.aggregate([
-//         {
-//             $addFields:
-//                 { flightcrew: { $concatArrays: ['$flightcrew', ['$cmd']] } }
-//         }, {
-//             $unwind: '$flightcrew'
-//         }, {
-//             $group: { _id: "$flightcrew", totalTime: { $sum: "$blocktimeMinutes" }, sectors: { $sum: 1 } }
-//         },
-//         {
-//             $match: {
-//                 _id: { $regex: name, $options: 'i' }
-//             }
-//         },
-//     ])
-//     if (!totalBoy[0]) {
-//         return
-//     }
-//     totalBoy[0].totalTime = Math.floor(totalBoy[0].totalTime / 60)
-//     res.send(totalBoy)
-// })
-
-// // new
+const totalHours = async (req, res) => {
+    const name = req.query.name
+    const totalBoy = await LogbookEntry.aggregate([
+        {
+            $addFields:
+                { flightcrew: { $concatArrays: ['$flightcrew', ['$cmd']] } }
+        }, {
+            $unwind: '$flightcrew'
+        }, {
+            $group: { _id: "$flightcrew", totalTime: { $sum: "$blocktimeMinutes" }, sectors: { $sum: 1 } }
+        },
+        {
+            $match: {
+                _id: { $regex: name, $options: 'i' }
+            }
+        },
+    ])
+    if (!totalBoy[0]) {
+        return
+    }
+    totalBoy[0].totalTime = Math.floor(totalBoy[0].totalTime / 60)
+    res.send(totalBoy)
+}
 
 const logbook = async (req, res) => {
     const name = req.query.name
@@ -72,4 +69,4 @@ const logbook = async (req, res) => {
     res.json(logBoy)
 }
 
-module.exports = { toplist, logbook }
+module.exports = { toplist, logbook, totalHours }
