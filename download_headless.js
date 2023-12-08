@@ -2,14 +2,13 @@ const puppeteer = require('puppeteer');
 const { debugDownHeadless } = require('./debug.js')
 const path = require('path');
 const fs = require('fs');
+const { readCSV } = require('./convert_csv_to_entry.js');
+const cron = require('node-cron');
 
-// fs.watch('path/to/download/directory', (eventType, filename) => {
-    // if (eventType === 'rename' && filename) {
-        // console.log(`A new file has been added: ${filename}`);
-    // }
-// });
-(async () => {
-    const browser = await puppeteer.launch({ headless: false  });
+debugDownHeadless("START")
+// Schedule the task to run every Friday at 13:25
+cron.schedule('25 13 * * 5', async () => {
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     try {
@@ -30,41 +29,35 @@ const fs = require('fs');
         await page.goto('https://svensktambulansflyg.airmaestro.net/Modules/Reporting/ReportWizard.aspx?RID=80&V=1');
 
         debugDownHeadless("Navigating to report")
-        const today = new Date();
-        const day = today.getDate();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        const formattedDate = `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
-
-        // Use evaluateHandle to get a JSHandle to the input element
-        // const dateInputHandle = await page.$('#ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput');
-        // debugDownHeadless("Got handle")
-        // Use the JSHandle to set the value of the input element
-        // await dateInputHandle.evaluate((input, formattedDate) => {
-        //     input.value = formattedDate;
-
-        //     // Trigger an 'input' event to simulate user input
-        //     const inputEvent = new Event('input', { bubbles: true });
-        //     input.dispatchEvent(inputEvent);
-
-        //     // Trigger a 'change' event to ensure any associated listeners are notified
-        //     const changeEvent = new Event('change', { bubbles: true });
-        //     input.dispatchEvent(changeEvent);
-
-        //     // Optionally, trigger a 'blur' event to simulate losing focus (if needed)
-        //     const blurEvent = new Event('blur', { bubbles: true });
-        //     input.dispatchEvent(blurEvent);
-        // }, formattedDate);
-
-        await new Promise(r => setTimeout(r, 15000));
+        
+        await new Promise(r => setTimeout(r, 25000));
+        debugDownHeadless("CLICK")
         await page.click('#ctl00_Content_Dynamic_lbExportCSV');
-        debugDownHeadless("CLICK") 
 
         await new Promise(r => setTimeout(r, 90000));
-        console.log('Download complete');
+        debugDownHeadless('Download complete');
+
+        // Rename the downloaded file
+        const directory = './downloads/'; // Replace with the directory where the file is downloaded
+        fs.readdir(downloadPath, (err, files) => {
+            debugDownHeadless("RENAME")
+            if (err) throw err;
+            debugDownHeadless(files)
+            for (const file of files) {
+                if (file.startsWith('Basic')) {
+                    fs.rename(path.join(directory, file), path.join(directory, 'input.csv'), err => {
+                        if (err) throw err;
+                        debugDownHeadless('Rename complete!');
+                    });
+                }
+            }
+            readCSV('./downloads/input.csv')
+        });
+        debugDownHeadless("DONE")
+        
     } catch (error) {
         console.error('Error:', error);
     } finally {
         await browser.close();
     }
-})();
+});
