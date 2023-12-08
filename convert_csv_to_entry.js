@@ -43,7 +43,7 @@ function convertName(input) {
     return output;
 }
 
-function readCsv(pathToFile) {
+function readCSV(pathToFile) {
     const results = [];
     fs.createReadStream('./docker/org_logbook.csv')
         .pipe(csv())
@@ -115,4 +115,4 @@ function readCsv(pathToFile) {
 }
 
 
-module.exports = { makeLogbookEntry, convertName, readCsv };
+module.exports = { makeLogbookEntry, convertName, readCSV };
