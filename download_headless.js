@@ -1,9 +1,15 @@
 const puppeteer = require('puppeteer');
+const { debugDownHeadless } = require('./debug.js')
 const path = require('path');
 const fs = require('fs');
 
+// fs.watch('path/to/download/directory', (eventType, filename) => {
+    // if (eventType === 'rename' && filename) {
+        // console.log(`A new file has been added: ${filename}`);
+    // }
+// });
 (async () => {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false  });
     const page = await browser.newPage();
 
     try {
@@ -18,21 +24,22 @@ const fs = require('fs');
         await page.type('#ctl00_Content_txtUsername', process.env.username);
         await page.type('#ctl00_Content_txtPassword', process.env.password);
         await page.click('#ctl00_Content_btnLogin');
-        console.log("Loggin in")
+        debugDownHeadless("Loggin in")
         await page.waitForNavigation();
 
         await page.goto('https://svensktambulansflyg.airmaestro.net/Modules/Reporting/ReportWizard.aspx?RID=80&V=1');
 
-        // const today = new Date();
-        // const day = today.getDate();
-        // const month = today.getMonth() + 1;
-        // const year = today.getFullYear();
-        // const formattedDate = `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+        debugDownHeadless("Navigating to report")
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+        const formattedDate = `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
 
-        // // Use evaluateHandle to get a JSHandle to the input element
+        // Use evaluateHandle to get a JSHandle to the input element
         // const dateInputHandle = await page.$('#ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput');
-
-        // // Use the JSHandle to set the value of the input element
+        // debugDownHeadless("Got handle")
+        // Use the JSHandle to set the value of the input element
         // await dateInputHandle.evaluate((input, formattedDate) => {
         //     input.value = formattedDate;
 
@@ -49,12 +56,11 @@ const fs = require('fs');
         //     input.dispatchEvent(blurEvent);
         // }, formattedDate);
 
-        await new Promise(r => setTimeout(r, 3000));
-        await page.waitForSelector('#ctl00_Content_Dynamic_lbExportCSV', { visible: true, timeout: 60000 });
-        await page.click('#ctl00_Content_Dynamic_lbExportCSV', { visible: true, timeout: 60000 });
+        await new Promise(r => setTimeout(r, 15000));
+        await page.click('#ctl00_Content_Dynamic_lbExportCSV');
+        debugDownHeadless("CLICK") 
 
         await new Promise(r => setTimeout(r, 90000));
-
         console.log('Download complete');
     } catch (error) {
         console.error('Error:', error);
