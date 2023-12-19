@@ -3,7 +3,7 @@ const csv = require('csv-parser');
 const { debug, debugDB } = require('./debug.js')
 const LogbookEntry = require('./models/logbookModel');
 
-async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, destination, blocksOn, cmd, flightcrew) {
+async function makeLogbookEntry(date, reg, flightNumber, departure, offBlock, destination, blocksOn, cmd, flightcrew) {
     const offBlockPlaceholder = new Date(...offBlock)
     const onBlockPlaceholder = new Date(...blocksOn)
     const blocktimePlaceholder = new Date(onBlockPlaceholder - offBlockPlaceholder)
@@ -15,7 +15,7 @@ async function makeLogbookEntry(date, reg, flightNumber, depature, offBlock, des
         date: new Date(Date.UTC(...date)),
         reg: reg,
         flightNumber: flightNumber,
-        depature: depature,
+        departure: departure,
         offBlock: offBlockPlaceholder,
         destination: destination,
         blocksOn: onBlockPlaceholder,
@@ -45,7 +45,7 @@ function convertName(input) {
 
 function readCSV(pathToFile) {
     const results = [];
-    fs.createReadStream('./docker/org_logbook.csv')
+    fs.createReadStream(pathToFile)
         .pipe(csv())
         .on('headers', (headers) => {
             // debug(headers)
