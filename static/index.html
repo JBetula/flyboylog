@@ -40,7 +40,9 @@
                     <th>Destination</th>
                     <th>BlocksOn</th>
                     <th>Blocktime</th>
-                    <th>Commander</th>
+                    <th>Commander
+                        <span id="arrowCmd" style="cursor:pointer;">↕</span>
+                    </th>
                     <th>Flight Crew</th>
                 </tr>
             </thead>
@@ -51,13 +53,14 @@
     </div>
 
     <script>
+        var data = []
         async function fetchData(searchTerm = '') {
             if (!searchTerm) return
             try {
-                const response = await fetch(`http://localhost:3000/api/logbook?name=${encodeURIComponent(searchTerm)}`, {
+                const response = await fetch(`http://localhost:3000/api/logbook/logbook?name=${encodeURIComponent(searchTerm)}`, {
                     method: 'GET'
                 });
-                const data = await response.json();
+                data = await response.json();
                 const len = data.length
                 populateTable(data);
                 let sum = 0
@@ -71,19 +74,7 @@
                 console.error('Error fetching data:', error);
             }
         }
-        // Function to make a GET request for total hours
-        async function fetchTotalHours(searchTerm = '') {
-            try {
-                const response = await fetch(`http://localhost:3000/api/totalhours?name=${encodeURIComponent(searchTerm)}`);
-                const totalHours = await response.json();
-                console.log("totalhours=", totalHours)
-                document.getElementById('totalHours').textContent = totalHours[0].totalTime;
-                document.getElementById('totalSectors').textContent = totalHours[0].sectors;
-            } catch (error) {
-                console.error('Error fetching total hours:', error);
-            }
-        }
-        // Function to handle search
+        
         function handleSearch() {
             const searchTerm = document.getElementById('searchInput').value;
             fetchData(searchTerm)
@@ -103,7 +94,7 @@
                 <td>${item.date.split('T')[0]}</td>
                 <td>${item.reg}</td>
                 <td>${item.flightNumber}</td>
-                <td>${item.depature}</td>
+                <td>${item.departure}</td>
                 <td>${item.offBlock.split('T')[1].split('.')[0]}</td>
                 <td>${item.destination}</td>
                 <td>${item.blocksOn.split('T')[1].split('.')[0]}</td>
@@ -124,46 +115,56 @@
                 handleSearch();
             }
         });
-        let isAscending = true;
+        let isAscendingDate = false;
+        let isAscendingCmd = false;
 
         document.getElementById('arrow').addEventListener('click', function () {
-            sortTable(isAscending ? 'asc' : 'desc');
-            isAscending = !isAscending; // Flip the sorting order for the next click
+            sortTableDate(isAscendingDate ? 'asc' : 'desc');
+            isAscendingDate = !isAscendingDate; // Flip the sorting order for the next click
+        });
+        document.getElementById('arrowCmd').addEventListener('click', function () {
+            sortTableCmd(isAscendingCmd ? 'asc' : 'desc');
+            isAscendingCmd = !isAscendingCmd; // Flip the sorting order for the next click
         });
 
-        function sortTable(order) {
-            let table, rows, switching, i, x, y, xOffblock, yOffblock, shouldSwitch;
-            table = document.getElementById("flightDataBody");
-            switching = true;
+        function sortTableCmd(order) {
+            const tableBody = document.getElementById('flightDataBody');
+            tableBody.innerHTML = ''; // Clear existing rows
 
-            while (switching) {
-                switching = false;
-                rows = table.rows;
+            data.sort((a, b) => {
+                const cmdComparison = a.cmd.localeCompare(b.cmd);
+                if (cmdComparison !== 0) return order === 'asc' ? cmdComparison : -cmdComparison;
 
-                for (i = 0; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName("TD")[0];
-                    y = rows[i + 1].getElementsByTagName("TD")[0];
-                    xOffblock = rows[i].getElementsByTagName("TD")[1]; // Get the offblock value for the current row
-                    yOffblock = rows[i + 1].getElementsByTagName("TD")[1]; // Get the offblock value for the next row
+                // If cmd are equal, compare by date
+                const dateComparison = new Date(a.date).getTime() - new Date(b.date).getTime();
+                if (dateComparison !== 0) return dateComparison;
 
-                    if (x.innerHTML.toLowerCase() === y.innerHTML.toLowerCase()) {
-                        // If the dates are equal, compare the offblock values
-                        if (order === 'asc' ? xOffblock.innerHTML.toLowerCase() > yOffblock.innerHTML.toLowerCase() : xOffblock.innerHTML.toLowerCase() < yOffblock.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (order === 'asc' ? x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() : x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
+                // If dates are equal, compare by offBlock (always in ascending order)
+                const offBlockComparison = new Date(a.offBlock).getTime() - new Date(b.offBlock).getTime();
+                return offBlockComparison;
+            });
 
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                }
-            }
+            populateTable(data);
+        }
+
+
+
+
+        function sortTableDate(order) {
+            const tableBody = document.getElementById('flightDataBody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.sort((a, b) => {
+                // Compare by date
+                const dateComparison = new Date(a.date).getTime() - new Date(b.date).getTime();
+                if (dateComparison !== 0) return order === 'asc' ? dateComparison : -dateComparison;
+
+                // If dates are equal, compare by offBlock (always in ascending order)
+                const offBlockComparison = new Date(a.offBlock).getTime() - new Date(b.offBlock).getTime();
+                return offBlockComparison;
+            });
+
+            populateTable(data);
         }
     </script>
 
