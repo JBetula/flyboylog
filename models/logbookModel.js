@@ -4,7 +4,7 @@ const logbookSchema = new mongoose.Schema({
     date: Date,
     reg: String,
     flightNumber: String,
-    depature: String,
+    departure: String,
     offBlock: Date,
     destination: String,
     blocksOn: Date,
