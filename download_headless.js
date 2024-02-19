@@ -4,12 +4,14 @@ const path = require('path');
 const fs = require('fs');
 const { readCSV } = require('./convert_csv_to_entry.js');
 const cron = require('node-cron');
+const { connectDB, disconnectDB } = require('./db.js');
 
 // debugDownHeadless("START")
 // Schedule the task to run every Friday at 13:25
 
 // cron.schedule('25 13 * * 5', async () => {
 (async () => {
+    connectDB()
 const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
@@ -64,4 +66,6 @@ const browser = await puppeteer.launch({ headless: false });
     } finally {
         await browser.close();
     }
+    await new Promise(r => setTimeout(r, 20000));
+    disconnectDB()
 })();
