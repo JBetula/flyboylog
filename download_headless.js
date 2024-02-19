@@ -5,11 +5,14 @@ const fs = require('fs');
 const { readCSV } = require('./convert_csv_to_entry.js');
 const cron = require('node-cron');
 
-debugDownHeadless("START")
+// debugDownHeadless("START")
 // Schedule the task to run every Friday at 13:25
-cron.schedule('25 13 * * 5', async () => {
-    const browser = await puppeteer.launch({ headless: false });
+
+// cron.schedule('25 13 * * 5', async () => {
+(async () => {
+const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
+    await page.setViewport({ width: 1920, height: 1080 });
 
     try {
         const downloadPath = path.resolve(__dirname, 'downloads');
@@ -32,6 +35,7 @@ cron.schedule('25 13 * * 5', async () => {
         
         await new Promise(r => setTimeout(r, 25000));
         debugDownHeadless("CLICK")
+        page.screenshot()
         await page.click('#ctl00_Content_Dynamic_lbExportCSV');
 
         await new Promise(r => setTimeout(r, 90000));
@@ -51,8 +55,8 @@ cron.schedule('25 13 * * 5', async () => {
                     });
                 }
             }
-            readCSV('./downloads/input.csv')
         });
+        readCSV('./downloads/input.csv')
         debugDownHeadless("DONE")
         
     } catch (error) {
@@ -60,4 +64,4 @@ cron.schedule('25 13 * * 5', async () => {
     } finally {
         await browser.close();
     }
-});
+})();

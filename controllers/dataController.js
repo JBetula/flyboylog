@@ -1,4 +1,5 @@
 const LogbookEntry = require('../models/logbookModel');
+const AirportEntry = require('../models/airportsModel');
 const { debug } = require('../debug')
 
 const routesByNrOfsectors = async (req, res) => {
@@ -44,13 +45,24 @@ const routesByNrOfsectors = async (req, res) => {
         { $sort: { sectors: -1 } },
         ...(airport ? [{ $match: { _id: { $in: [airport] } } }] : [])
     ]);
+    
+    const uniqueAirports = Array.from(
+        new Set(bigboy.flatMap(entry => entry._id))
+    );
+
 
     console.log(
-        bigboy
+        // bigboy
+        // uniqueArray
     )
-    bigboy.push({ "Searchterm": name })
-    debug(bigboy)
-    res.json(bigboy)
+    const airportCoords = await AirportEntry.find({ ICAO: { $in: uniqueAirports } }, 'ICAO lat long');
+    const modifiedAirportCoords = airportCoords.map(airport => ({
+            _id:  airport.ICAO,
+            lat: airport.lat,
+            long: airport.long
+    }
+    )) 
+    res.json({ sectors: bigboy, modifiedAirportCoords })
 
 
 }

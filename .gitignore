@@ -130,5 +130,6 @@ dist
 .pnp.*
 
 # logbook
-docker/org_logbook.csv
+docker/org_logbook*
 startupscript.sh
+/downloads/Basic*

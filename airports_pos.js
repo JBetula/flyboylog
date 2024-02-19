@@ -3,9 +3,6 @@ const AirportEntry = require('./models/airportsModel.js');
 const fs = require('fs');
 const csv = require('csv-parser');
 const connectDB = require('./db.js');
-// const { connect } = require('http2');
-// Connect to MongoDB
-// mongoose.connect('mongodb://localhost:27017/flyboy', { useNewUrlParser: true, useUnifiedTopology: true });
 connectDB()
 // Function to import data from CSV to MongoDB
 async function importData() {
