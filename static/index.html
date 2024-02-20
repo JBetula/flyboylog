@@ -61,12 +61,13 @@
     </div>
 
     <script>
-        var map = L.map('mapid', {
-            fullscreenControl: true,
-        }).setView([63.796653705999724, 20.280822604159695], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
+        initializeMap()
+        // var map = L.map('mapid', {
+        //     fullscreenControl: true,
+        // }).setView([63.796653705999724, 20.280822604159695], 11);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     maxZoom: 19,
+        // }).addTo(map);
 
         var data = []
         var data2 = []
@@ -79,6 +80,7 @@
                 const response2 = await fetch(`http://localhost:3000/api/data/routesByNrOfsectors?name=${encodeURIComponent(searchTerm)}`, {
                     method: 'GET'
                 });
+                resetMap()
                 // First response
                 data = await response.json();
                 const len = data.length
@@ -161,7 +163,24 @@
                 console.error('Error fetching data:', error);
             }
         }
+        function initializeMap() {
+                map = L.map('mapid', {
+                    fullscreenControl: true,
+                }).setView([63.796653705999724, 20.280822604159695], 11);
 
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                }).addTo(map);
+
+                // Add any other initialization code for your map here, if needed
+            }
+        function resetMap() {
+                // Remove the current map instance
+                map.remove();
+
+                // Reinitialize the map with the original settings
+                initializeMap();
+            }
         function handleSearch() {
             const searchTerm = document.getElementById('searchInput').value;
             fetchData(searchTerm)
