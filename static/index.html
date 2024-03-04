@@ -33,8 +33,20 @@
             <strong>Total Hours: </strong><span id="totalHours"></span><br>
             <strong>Sectors: </strong><span id="totalSectors"></span>
         </div>
-        <div id="mapid" style="height: 180px;"></div>
-        <canvas id="monthlyChart" width="400" height="200"></canvas>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="mapid" style="height: 180px;"></div>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="monthlyChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="mapid" style="height: 180px;"></div>
+        <canvas id="monthlyChart" width="400" height="200"></canvas> -->
+        <!-- <canvas id="monthlyChart" width="200" height="180"></canvas> -->
 
         <table class="table">
             <thead>
@@ -63,6 +75,7 @@
     </div>
 
     <script>
+        let chartInstance = null;
         initializeMap()
         // var map = L.map('mapid', {
         //     fullscreenControl: true,
@@ -114,7 +127,7 @@
 
                 // Create a chart
                 const ctx = document.getElementById('monthlyChart').getContext('2d');
-                const chart = new Chart(ctx, {
+                chartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: months,
@@ -127,6 +140,7 @@
                         }]
                     },
                     options: {
+                        responsive: false,
                         scales: {
                             y: {
                                 beginAtZero: true
@@ -229,6 +243,9 @@
         }
         function resetMap() {
             // Remove the current map instance
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
             map.remove();
 
             // Reinitialize the map with the original settings
