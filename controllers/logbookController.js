@@ -27,6 +27,7 @@ const toplist = async (req, res) => {
 
     for (let index = 0; index < bigboy.length; index++) {
         bigboy[index].totalTime = [Math.floor(bigboy[index].totalTime / 60), (bigboy[index].totalTime % 60)]
+        bigboy[index].rank = index +1
     }
     debug(bigboy)
     res.json(bigboy)
