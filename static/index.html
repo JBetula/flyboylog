@@ -84,7 +84,7 @@
                 // First response
                 data = await response.json();
                 const len = data.length
-                populateTable(data);
+                populateTable(data.logBookEntries);
                 let sum = 0
                 for (let index = 0; index < len; index++) {
                     sum = sum + data[index].blocktimeMinutes;
