@@ -100,7 +100,7 @@
                 // First response
                 data = await response.json();
                 const len = data.logBookEntries.length
-                populateTable(data.logBookEntries);
+                populateTable(data.logBookEntries.reverse());
                 const last6Months = Array.from({ length: 6 }, (_, index) => {
                     const currentDate = new Date();
                     currentDate.setMonth(currentDate.getMonth() - index);
@@ -290,7 +290,7 @@
                 handleSearch();
             }
         });
-        let isAscendingDate = false;
+        let isAscendingDate = true;
         let isAscendingCmd = false;
 
         document.getElementById('arrow').addEventListener('click', function () {
