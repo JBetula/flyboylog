@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hiscore List</title>
+    <!-- Include Bootstrap CSS (you can replace the CDN link with your local file) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <a href="index.html" class="btn btn-primary">Back</a>
+        <h1 class="mt-4 mb-4">Hiscore List</h1>
+
+        <table id="hiscoreTable" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Pilot</th>
+                    <th scope="col">Total Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically populated here -->
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS (optional, for certain Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        // Replace this function with your actual HTTP request to fetch data
+        async function fetchData() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/logbook/toplist`, {
+                    method: 'GET'
+                });
+                data = await response.json();
+            } catch {
+                pass
+            }
+            
+            // Mock data for demonstration
+            
+            // Function to populate the table with data
+            function populateTable(data) {
+                var tableBody = $("#hiscoreTable tbody");
+                tableBody.empty(); // Clear existing rows
+
+                // Iterate through data and create table rows
+                data.forEach(function (player, index) {
+                    var row = `<tr>
+                        <th scope="row">${index + 1}</th>
+                        <td>${player._id}</td>
+                        <td>${player.totalTime.reduce((acc, time) => acc + time, 0)}</td>
+                    </tr>`;
+                    tableBody.append(row);
+                });
+            }
+
+            // Call the function with the fetched data
+            populateTable(data);
+        }
+
+        // Fetch data when the page loads
+        $(document).ready(function () {
+            fetchData();
+        });
+        fetchData()
+    </script>
+
+</body>
+
+</html>
