@@ -20,7 +20,8 @@
 
     <div class="container mt-5">
         <h2>Flight Data</h2>
-        Sectors
+        <a href="hiscore.html" style="margin-bottom: 20px; margin-top: 20px;" class="btn btn-primary">Hiscore list</a>
+        <!-- Sectors -->
         <!-- Search bar and button -->
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="searchInput" placeholder="Search by Name">
@@ -33,13 +34,13 @@
             <strong>Total Hours: </strong><span id="totalHours"></span><br>
             <strong>Sectors: </strong><span id="totalSectors"></span>
         </div>
-        <div class="container">
+        <div class="container" style="margin-bottom: 20px;">
             <div class="row">
                 <div class="col-md-6">
-                    <div id="mapid" style="height: 180px;"></div>
+                    <div id="mapid" style="height: 200px; width: 500px;"></div>
                 </div>
                 <div class="col-md-6">
-                    <canvas id="monthlyChart" width="400" height="200"></canvas>
+                    <canvas id="monthlyChart" width="500" height="200"></canvas>
                 </div>
             </div>
         </div>
@@ -56,13 +57,13 @@
                         <span id="arrow" style="cursor:pointer;">↕</span>
                     </th>
                     <th> Reg </th>
-                    <th>Flight Number</th>
+                    <th>Flight Nr</th>
                     <th>Departure</th>
                     <th>OffBlock</th>
                     <th>Destination</th>
                     <th>BlocksOn</th>
                     <th>Blocktime</th>
-                    <th>Commander
+                    <th>Cmd
                         <span id="arrowCmd" style="cursor:pointer;">↕</span>
                     </th>
                     <th>Flight Crew</th>
@@ -98,7 +99,7 @@
                 resetMap()
                 // First response
                 data = await response.json();
-                const len = data.length
+                const len = data.logBookEntries.length
                 populateTable(data.logBookEntries);
                 const last6Months = Array.from({ length: 6 }, (_, index) => {
                     const currentDate = new Date();
@@ -120,15 +121,13 @@
 
                 const months = mergedData.map(entry => `${entry._id.year}-${entry._id.month}`);
                 const blocktimeHours = mergedData.map(entry => entry.totalBlocktimeHours);
-
-
-                // const months = data.monthlyTotals.slice(-6).map(entry => `${entry._id.year}-${entry._id.month}`);
-                // const blocktimeHours =  data.monthlyTotals.slice(-6).map(entry => entry.totalBlocktimeHours);
+                months.reverse()
+                blocktimeHours.reverse()
 
                 // Create a chart
                 const ctx = document.getElementById('monthlyChart').getContext('2d');
                 chartInstance = new Chart(ctx, {
-                    type: 'bar',
+                    type: 'line',
                     data: {
                         labels: months,
                         datasets: [{
@@ -136,7 +135,7 @@
                             data: blocktimeHours,
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
+                            borderWidth: 3
                         }]
                     },
                     options: {
@@ -150,7 +149,7 @@
                 })
                 let sum = 0
                 for (let index = 0; index < len; index++) {
-                    sum = sum + data[index].blocktimeMinutes;
+                    sum = sum + data.logBookEntries[index].blocktimeMinutes;
                 }
                 sum = Math.floor(sum / 60)
                 document.getElementById('totalHours').textContent = sum;
@@ -257,14 +256,14 @@
         }
 
         // Function to populate the table with data
-        function populateTable(data) {
+        function populateTable(data1) {
             const tableBody = document.getElementById('flightDataBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
-            console.log(data);
+            console.log(data1);
 
             // Loop through the response data and create rows
-            data.forEach(item => {
+            data1.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <td>${item.date.split('T')[0]}</td>
@@ -307,7 +306,7 @@
             const tableBody = document.getElementById('flightDataBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
-            data.sort((a, b) => {
+            data.logBookEntries .sort((a, b) => {
                 const cmdComparison = a.cmd.localeCompare(b.cmd);
                 if (cmdComparison !== 0) return order === 'asc' ? cmdComparison : -cmdComparison;
 
@@ -320,7 +319,7 @@
                 return offBlockComparison;
             });
 
-            populateTable(data);
+            populateTable(data.logBookEntries);
         }
         function deg2rad(deg) {
             return deg * (Math.PI / 180)
@@ -351,7 +350,7 @@
             const tableBody = document.getElementById('flightDataBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
-            data.sort((a, b) => {
+            data.logBookEntries.sort((a, b) => {
                 // Compare by date
                 const dateComparison = new Date(a.date).getTime() - new Date(b.date).getTime();
                 if (dateComparison !== 0) return order === 'asc' ? dateComparison : -dateComparison;
@@ -361,7 +360,7 @@
                 return offBlockComparison;
             });
 
-            populateTable(data);
+            populateTable(data.logBookEntries);
         }
     </script>
 
