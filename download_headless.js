@@ -12,7 +12,7 @@ const { connectDB, disconnectDB } = require('./db.js');
 // cron.schedule('25 13 * * 5', async () => {
 (async () => {
     connectDB()
-const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
@@ -34,12 +34,14 @@ const browser = await puppeteer.launch({ headless: false });
         await page.goto('https://svensktambulansflyg.airmaestro.net/Modules/Reporting/ReportWizard.aspx?RID=80&V=1');
 
         debugDownHeadless("Navigating to report")
-        
+
         await new Promise(r => setTimeout(r, 25000));
         debugDownHeadless("CLICK")
         page.screenshot()
+        const html = await page.content();
+        fs.writeFileSync("index.html", html);
         await page.click('#ctl00_Content_Dynamic_lbExportCSV');
-
+        // javascript: __doPostBack('ctl00$Content$Dynamic$lbExportCSV', '')
         await new Promise(r => setTimeout(r, 90000));
         debugDownHeadless('Download complete');
 
@@ -52,15 +54,20 @@ const browser = await puppeteer.launch({ headless: false });
             for (const file of files) {
                 if (file.startsWith('Basic')) {
                     fs.rename(path.join(directory, file), path.join(directory, 'input.csv'), err => {
-                        if (err) throw err;
-                        debugDownHeadless('Rename complete!');
+                        if (err) {
+                            console.error("Error while renaming:", err);
+                        } else {
+                            debugDownHeadless('Rename complete!');
+                        }
                     });
                 }
             }
         });
+
+        debugDownHeadless("Call readCSV")
         readCSV('./downloads/input.csv')
         debugDownHeadless("DONE")
-        
+
     } catch (error) {
         console.error('Error:', error);
     } finally {
