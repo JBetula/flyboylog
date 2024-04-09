@@ -8,6 +8,7 @@ async function makeLogbookEntry(date, reg, flightNumber, departure, offBlock, de
     const onBlockPlaceholder = new Date(...blocksOn)
     const blocktimePlaceholder = new Date(onBlockPlaceholder - offBlockPlaceholder)
     const blocktimeMinutesPlaceholder = (blocktimePlaceholder.getUTCMinutes() + (blocktimePlaceholder.getUTCHours() * 60))
+    
     const entry = new LogbookEntry({
         // Input in UTC
         // date: new Date(Date.UTC(...date)),
@@ -93,8 +94,6 @@ function readCSV(pathToFile) {
                     const [cmdWrongFormat, ...restOfCrewWrongFormat] = results[i].AllCrew.split(', ').map(f => { return f.toUpperCase() })
                     const cmd = convertName(cmdWrongFormat)
                     const restOfCrew = restOfCrewWrongFormat.map(f => convertName(f))
-                    // debug(cmd)
-                    // debug("call")
                     makeLogbookEntry(
                         dateArray,
                         results[i].reg,
