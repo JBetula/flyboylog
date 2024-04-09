@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+
+  flyboydb:
+    image: mongo
+    container_name: iflyboylog_database
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./flyboydb:/data/db
+    networks:
+      - flyboylog_network # Specify the network for the 'mongo' service
+
+  iflyboylog:
+    container_name: iflyboylog
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - flyboydb
+    networks:
+      - flyboylog_network # Specify the network for the 'iflyboylog' service
+volumes:
+  flyboydb: {}
+networks:
+  flyboylog_network:
+    driver: bridge
+
+# version: '3.1'
+
+# services:
+
+#   mongo:
+#     image: mongo
+#     container_name: flyboylog_databas 
+#     restart: always
+#     ports:
+#       - 27017:27017
+#     volumes:
+#       - ./data:/data/db
+
+#   iflyboylog:
+#     build:
+#       context: .
+#       dockerfile: dockerfile
+#     ports:
+#       - "3000:3000"
