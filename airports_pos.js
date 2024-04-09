@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const AirportEntry = require('./models/airportsModel.js');
 const fs = require('fs');
 const csv = require('csv-parser');
-const connectDB = require('./db.js');
+const { connectDB } = require('./db.js');
 connectDB()
 // Function to import data from CSV to MongoDB
 async function importData() {
