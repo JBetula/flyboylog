@@ -9,8 +9,7 @@ const { connectDB, disconnectDB } = require('./db.js');
 // debugDownHeadless("START")
 // Schedule the task to run every Friday at 13:25
 
-// cron.schedule('25 13 * * 5', async () => {
-(async () => {
+cron.schedule('0 4 * * *', async () => {
     connectDB()
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
