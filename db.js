@@ -3,7 +3,7 @@ const {debugDB} = require('./debug.js')
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/flyboy', {
+        await mongoose.connect('mongodb://flyboydb:27017/flyboy', {
         });
         debugDB('MongoDB Connected');
     } catch (error) {
