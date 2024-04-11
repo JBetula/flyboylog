@@ -6,12 +6,14 @@ const { readCSV } = require('./convert_csv_to_entry.js');
 const cron = require('node-cron');
 const { connectDB, disconnectDB } = require('./db.js');
 
-// debugDownHeadless("START")
-// Schedule the task to run every Friday at 13:25
-
 cron.schedule('0 4 * * *', async () => {
     connectDB()
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/google-chrome',
+        headless: 'new',
+        ignoreDefaultArgs: ['--disable-extensions'],
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
@@ -29,21 +31,16 @@ cron.schedule('0 4 * * *', async () => {
         await page.click('#ctl00_Content_btnLogin');
         debugDownHeadless("Loggin in")
         await page.waitForNavigation();
-
         await page.goto('https://svensktambulansflyg.airmaestro.net/Modules/Reporting/ReportWizard.aspx?RID=80&V=1');
-
         debugDownHeadless("Navigating to report")
-
         await new Promise(r => setTimeout(r, 25000));
         debugDownHeadless("CLICK")
         page.screenshot()
         const html = await page.content();
         fs.writeFileSync("index.html", html);
         await page.click('#ctl00_Content_Dynamic_lbExportCSV');
-        // javascript: __doPostBack('ctl00$Content$Dynamic$lbExportCSV', '')
         await new Promise(r => setTimeout(r, 90000));
         debugDownHeadless('Download complete');
-
         // Rename the downloaded file
         const directory = './downloads/'; // Replace with the directory where the file is downloaded
         fs.readdir(downloadPath, (err, files) => {
@@ -62,7 +59,6 @@ cron.schedule('0 4 * * *', async () => {
                 }
             }
         });
-
         debugDownHeadless("Call readCSV")
         readCSV('./downloads/input.csv')
         debugDownHeadless("DONE")
@@ -74,4 +70,4 @@ cron.schedule('0 4 * * *', async () => {
     }
     await new Promise(r => setTimeout(r, 20000));
     disconnectDB()
-})();
+});
