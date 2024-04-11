@@ -27,9 +27,9 @@ async function makeLogbookEntry(date, reg, flightNumber, departure, offBlock, de
     })
     try {
         const result = await entry.save()
-        debug("SAVED", entry)
+        debug("SAVED", entry.date.toDateString(), entry.flightNumber.toString())
     } catch (error) {
-        debug(entry, error.message)
+        debug(error.message)
     }
 }
 
@@ -49,32 +49,24 @@ function readCSV(pathToFile) {
     fs.createReadStream(pathToFile)
         .pipe(csv())
         .on('headers', (headers) => {
-            // debug(headers)
-            // Rename the first column to "date"
             headers[0] = 'date';
             headers[1] = 'reg';
             headers[2] = 'dep';
             headers[3] = 'blockOff';
             headers[4] = 'dest';
             headers[5] = 'blockOn';
-            // debug(headers)
         })
         .on('data', (data) => {
-            // Push each row to the results array
-            // debug(data)
+            debug(data)
             results.push(data);
         })
         .on('end', () => {
-            // debug(results.length)
             for (let i = 0; i < results.length; i++) {
                 debug("end", results[i].date)
                 try {
-                    // console.log("BIGBOY ",results[i])
                     const [day, month, year] = results[i].date.split('/').map(Number);
-                    // console.log(year)
                     if (year.length > 4)
                         year.slice(0, 4)
-                    // console.log(year)
                     if (isNaN(day) || isNaN(month) || isNaN(year))
                         continue
                     const dateArray = [year, (month - 1), day];
@@ -105,13 +97,12 @@ function readCSV(pathToFile) {
                         cmd,
                         restOfCrew,
                     )
-                } catch { pass }
+                } catch { console.log(error.message) }
 
             }
         },
         );
     return results
 }
-
 
 module.exports = { makeLogbookEntry, convertName, readCSV };
