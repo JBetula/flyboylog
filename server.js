@@ -5,6 +5,7 @@ const { connectDB } = require('./db.js')
 
 const entryinsert = require('./convert_csv_to_entry.js')
 const PORT = process.env.PORT || 3000;
+connectDB()
 const express = require('express')
 const app = express()
 
@@ -13,8 +14,7 @@ app.use('/api/logbook', logbookRoutes)
 app.use('/api/data', dataRoutes)
 app.use('/', express.static('static'))
 
-
-connectDB()
+console.log("server started")
 entryinsert.readCSV('./downloads/input.csv')
 
 
