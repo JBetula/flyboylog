@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const AirportEntry = require('./models/airportsModel.js');
 const fs = require('fs');
 const csv = require('csv-parser');
-const { connectDB } = require('./db.js');
-connectDB()
+const { connectDB, disconnectDB } = require('./db.js');
 // Function to import data from CSV to MongoDB
 async function importData() {
+    connectDB()
     const data = [];
 
     // Read data from CSV file
@@ -24,11 +24,16 @@ async function importData() {
             }
         })
         .on('end', async () => {
+            try {
             // Insert data into MongoDB
             await AirportEntry.insertMany(data);
             console.log('Data imported successfully.');
-            mongoose.disconnect();
+            } catch {
+                pass
+        }
+            // mongoose.disconnect();
         });
+    disconnectDB();
 }
 
 // Run the import function
