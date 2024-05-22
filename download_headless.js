@@ -6,11 +6,13 @@ const { readCSV } = require('./convert_csv_to_entry.js');
 const cron = require('node-cron');
 const { connectDB, disconnectDB } = require('./db.js');
 
+
 cron.schedule('0 4 * * *', async () => {
     connectDB()
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/google-chrome',
-        headless: 'new',
+        headless: false,
+        // headless: 'new',
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
@@ -38,6 +40,13 @@ cron.schedule('0 4 * * *', async () => {
         page.screenshot()
         const html = await page.content();
         fs.writeFileSync("index.html", html);
+        await page.waitForSelector('#ctl00_Content_Dynamic_CurrentFilter59_tbTextCompare');
+        await page.evaluate(() => {
+            document.getElementById('ctl00_Content_Dynamic_CurrentFilter59_tbTextCompare').value = '';
+        });
+        await page.evaluate(() => {
+            document.getElementById('ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput').value = '';
+        });
         await page.click('#ctl00_Content_Dynamic_lbExportCSV');
         await new Promise(r => setTimeout(r, 90000));
         debugDownHeadless('Download complete');
@@ -70,4 +79,5 @@ cron.schedule('0 4 * * *', async () => {
     }
     await new Promise(r => setTimeout(r, 20000));
     disconnectDB()
+    
 });
