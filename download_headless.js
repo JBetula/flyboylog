@@ -7,12 +7,13 @@ const cron = require('node-cron');
 const { connectDB, disconnectDB } = require('./db.js');
 
 
+// cron.schedule('*/5 * * * *', async () => {
 cron.schedule('0 4 * * *', async () => {
     connectDB()
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/google-chrome',
-        headless: false,
-        // headless: 'new',
+        // headless: false,
+        headless: 'new',
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
