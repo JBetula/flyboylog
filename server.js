@@ -15,7 +15,7 @@ app.use('/api/data', dataRoutes)
 app.use('/', express.static('static'))
 
 console.log("server started")
-entryinsert.readCSV('./downloads/input.csv')
+// entryinsert.readCSV('./downloads/input.csv')
 
 
 app.listen(PORT, () => {

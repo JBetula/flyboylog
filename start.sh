@@ -1,1 +1,1 @@
-node server.js & node airports_pos.js & node download_headless.js 
+node airports_pos.js & node server.js & node download_headless.js 

@@ -1,0 +1,1041 @@
+<!DOCTYPE html><html id="ctl00_html" xmlns="http://www.w3.org/1999/xhtml" class="k-webkit k-webkit125 t-chrome t-chrome125"><head id="ctl00_PageHead"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        
+    <meta name="robots" content="noindex"><title>
+	Report Wizard
+</title>
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/client/dist/css/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="/client/dist/css/bootstrap.css?v=24.107.15242.0" type="text/css" media="all">
+<link rel="stylesheet" href="/client/dist/css/kendo.common.min.css" media="all">
+<link rel="stylesheet" href="/client/dist/css/kendo.bootstrap.css" media="all">
+<link rel="stylesheet" href="/client/dist/css/font-awesome-kendo-icons.css" media="all">
+
+<link rel="stylesheet" href="/client/dist/css/styles.css?v=24.107.15242.0" type="text/css" media="all">
+<link href="/client/dist/css/am-font.css?v=24.107.15242.0" type="text/css" rel="stylesheet" media="all">
+
+        <script type="text/javascript">
+            /* <![CDATA[ */
+
+            function checkCR(evt) {
+                var evt = (evt) ? evt : ((event) ? event : null);
+                var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        
+                if ((evt.keyCode == 13) && (node.type != "textarea")) { return false; }
+        
+                if ((evt.keyCode == 8) && (node.type == undefined || node.type.length < 4 || (node.type == "text" && node.readOnly) || (node.type.substr(0, 4) != "text" && node.type.substr(0, 4) != "pass"))) { return false; }
+
+                return true;
+            }
+
+            document.onkeydown = checkCR;
+
+            function backtoMain() {
+                window.location = '/Main.aspx';
+            }
+
+            window["dateFormat"] = 'd/MM/yyyy';
+            window["momentDateFormat"] = 'DD/MM/YYYY';
+
+            function Rostering() {
+                if (typeof PauseValidation == 'function') {
+                    PauseValidation();
+                }
+                window.open("/Modules/Rostering/main.aspx");
+            }
+
+            function openAlertsWindow(filterValue) {
+                var winMan = $find("ctl00_RadWindowManager1");
+                var alertsWindow = winMan.GetWindowByName("winAlerts");
+                alertsWindow.setUrl('/Controls/Header/Alerts.aspx?f=' + filterValue + '');
+                alertsWindow.show();
+                var winWidth = (myWidth() > 0) ? myWidth() : 900;
+                var winHeight = (myHeight() > 0) ? myHeight() : 500;
+                var ScreenWidth = (document.body.parentNode.getAttribute('clientWidth') != null) ? document.body.parentNode.getAttribute('clientWidth') : document.body.parentNode.clientWidth;
+                var ScreenHeight = (document.body.parentNode.getAttribute('clientHeight') != null) ? document.body.parentNode.getAttribute('clientHeight') : document.body.parentNode.clientHeight;
+                alertsWindow.setSize(winWidth, winHeight);
+                alertsWindow.moveTo((ScreenWidth - winWidth) / 2, (ScreenHeight - winHeight) / 2);
+            }
+            
+            function ToggleFullScreen() {
+                $('#ctl00_amMenu').toggle();
+                $('#ctl00_header').toggle();
+                $('#ctl00_footer').toggle();
+                var $page = $("div.am-content");
+                if ($page.hasClass("am-content-nomargin")) {
+                    $page.removeClass("am-content-nomargin");
+                } else {
+                    $page.addClass("am-content-nomargin");
+                }
+                //announce resize
+                let evt = window.document.createEvent('UIEvents');
+                evt.initUIEvent('resize', true, false, window, 0);
+                window.dispatchEvent(evt);
+            }
+            
+</script>
+    
+    <script> 
+</script>
+    <script src="/client/dist/js/static-f104f2a1.js"></script><script src="/client/dist/js/menu-0a276d8f.js"></script>
+<script src="/client/dist/js/bootstrap.min.js"></script><script id="scriptMenuData" type="application/json">{"categories":[{"name":"My Profile","items":[{"function":null,"name":"My Profile","iconClass":"am-profile","link":null,"target":null,"subMenu":{"name":"My Profile","badgeLink":"/Controls/GetFile.ashx?Thumb=yes&Type=Document&ID=","categories":[{"name":"","items":[{"function":null,"name":"Access Levels","link":"/modules/profile/useraccess.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Access Levels","tooltipText":null},{"function":null,"name":"Change Password","link":"/modules/profile/changepassword.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Check Forms","link":"/modules/profile/mycheckforms.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Check Forms","tooltipText":null},{"function":null,"name":"Details","link":"/modules/profile/details.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Details","tooltipText":null},{"function":null,"name":"Documents & Images","link":"/modules/profile/documentsimages.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Documents & Images","tooltipText":null},{"function":null,"name":"Endorsements","link":"/modules/profile/endorsements.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Endorsements","tooltipText":null},{"function":null,"name":"Entitlements","link":"/modules/profile/leave.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Entitlements","tooltipText":null},{"function":null,"name":"Exams","link":"/modules/exam/undertake/main.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Exams","tooltipText":null},{"function":null,"name":"Log Book","link":"/modules/profile/pilotinfo.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Log Book","tooltipText":null},{"function":null,"name":"Manual Alerts","link":"/modules/profile/alerts.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Manual Alerts","tooltipText":null},{"function":null,"name":"Recency","link":"/modules/profile/recency.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Recency","tooltipText":null},{"function":null,"name":"Rosters","link":"/modules/profile/roster.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Rosters","tooltipText":null},{"function":null,"name":"Schedule","link":"/modules/profile/schedule.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":"My Schedule","tooltipText":null},{"function":null,"name":"Timesheets","link":"/modules/profile/timesheet.aspx","target":null,"dontCollapse":false,"childPages":["modules/profile/timeSheetv2/main.aspx","modules/profile/timeSheetv2/edit.aspx"],"tags":null,"searchText":"My Timesheets","tooltipText":null},{"function":null,"name":"User Preferences","link":"/modules/profile/preferences.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":true},"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"iconClass":null},{"name":"Operations","items":[{"function":null,"name":"Aircraft","iconClass":"am-aircraft","link":"/modules/aircraft/main.aspx","target":null,"subMenu":null,"childPages":["/modules/aircraft/aircraft.aspx","/modules/aircraft/availability.aspx","/modules/aircraft/recency.aspx","/modules/aircraft/documentsimages.aspx","/modules/notifications/aircraftsetup.aspx","/modules/portaladmin/aircrafttypes.aspx"],"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Check Forms","iconClass":"am-recency","link":null,"target":null,"subMenu":{"name":"Check Forms","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Check Form Templates","link":"/modules/recency/checkformtemplateregister.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Check Forms","link":"/modules/recency/checkformregister.aspx","target":null,"dontCollapse":false,"childPages":["/modules/recency/recencycheckform.aspx"],"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Courses","iconClass":"am-courses","link":"/modules/courses/courseregister.aspx","target":null,"subMenu":null,"childPages":["/modules/courses/course.aspx"],"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Discretion Reports","iconClass":"am-ftl","link":"/modules/safety/discretionregister.aspx","target":null,"subMenu":null,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Flight Records","iconClass":"am-flight-records","link":"/modules/flightrecords/main.aspx","target":null,"subMenu":null,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Form Register","iconClass":"am-forms","link":"/modules/forms/formregister.aspx","target":null,"subMenu":null,"childPages":["/modules/forms/formswizard.aspx"],"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Locations","iconClass":"am-locations","link":null,"target":null,"subMenu":{"name":"Locations","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Base Register","link":"/modules/portaladmin/baseregister.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Location Register","link":"/modules/location/locationregister.aspx","target":null,"dontCollapse":false,"childPages":["/modules/location/ala.aspx","/modules/location/base.aspx","/modules/location/documentsimages.aspx","/modules/location/fueldepot.aspx","/modules/location/helipad.aspx","/modules/location/main.aspx","/modules/location/publishlocation.aspx","/modules/location/locationcontact.aspx"],"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Op. Risk Ass.","iconClass":"am-oprisk","link":"/modules/operationalrisk/main.aspx","target":null,"subMenu":null,"childPages":["/modules/operationalrisk/riskcheckform.aspx"],"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Personnel","iconClass":"am-personnel","link":null,"target":null,"subMenu":{"name":"Personnel","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Personnel","link":"/modules/contacts/contactregister.aspx?ctype=personnel","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Contacts","link":"/modules/contacts/contactregister.aspx?ctype=contact","target":null,"dontCollapse":false,"childPages":["/modules/contacts/main.aspx"],"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":"Menu_PauseValidation","name":"Roster","iconClass":"am-roster","link":"/modules/rostering/main.aspx","target":"roster","subMenu":null,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Scheduling","iconClass":"am-scheduling","link":null,"target":null,"subMenu":{"name":"Scheduling","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Scheduler","link":"/modules/scheduling/main.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Schedule Register","link":"/modules/scheduling/register.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"iconClass":"am-operations-circle"},{"name":"General","items":[{"function":null,"name":"Dashboards","iconClass":"am-dashboards","link":null,"target":null,"subMenu":{"name":"Dashboards","badgeLink":null,"categories":[{"name":"Recency Dashboard","items":[{"function":null,"name":"Getting Started","link":"/modules/dashboard/am/dashboard.aspx?recencydashboard#/recencydashboard/-1","target":null,"dontCollapse":true,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":{"createAccessPrivate":"True","createAccessGlobal":"False"}},{"name":"Roster Dashboard","items":[{"function":null,"name":"Roster Dashboard","link":"/modules/pwa/RedirectToPWA.aspx?pwaUrl=%2Fapp%2F%23%2Fdashboard%2Froster","target":null,"dontCollapse":true,"childPages":null,"tags":{"viewAccess":"true","modifyAccess":"false"},"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":{"createAccessPrivate":"False","createAccessGlobal":"False"}}],"dontCollapse":false,"searchText":null,"dontUseTabs":true},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Help","iconClass":"am-help","link":null,"target":null,"subMenu":{"name":"Help","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Knowledge Base","link":"https://wiki.airmaestro.com.au/display/AMKB","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Ask a Question","link":"https://help.avinet.com.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Ideas Portal","link":"https://ideas.avinet.com.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Release Notes","link":"https://avinet.atlassian.net/wiki/spaces/AMKB/pages/1628340225/Release+Notes","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Avinet Website","link":"http://www.airmaestro.com.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Duty Code Reference","link":"/modules/help/dutycodereference.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Video Help","link":"https://vimeo.com/avinetptyltd","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Open Source Licenses","link":"https://avinet.atlassian.net/wiki/spaces/AMKB/pages/1441824769/Open+Source+Licenses","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Links","iconClass":"am-link","link":null,"target":null,"subMenu":{"name":"Links","badgeLink":null,"categories":[{"name":"Organisation Links","items":[{"function":null,"name":"Air Services","link":"http://www.airservices.gov.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"ATSB","link":"http://www.atsb.gov.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Bureau of Meteorology","link":"http://www.bom.gov.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"CASA","link":"http://www.casa.gov.au","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Dangerous Goods","link":"http://www.dangerousgoods.com.au/","target":"_blank","dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":true,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Reporting","iconClass":"am-reporting","link":null,"target":null,"subMenu":{"name":"Reporting","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Recency Aircraft","link":"/modules/reporting/main.aspx?type=aircraft","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Recency Personnel","link":"/modules/reporting/main.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Roster Calendar","link":"/modules/rostering/calendarwizard.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Roster Compliance","link":"/modules/safety/rosterexceedences.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Scheduled Recency","link":"/modules/recency/scheduling/scheduledrecencyitems.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false},"childPages":null,"tags":null,"searchText":null,"tooltipText":null},{"function":null,"name":"Setup","iconClass":"am-setup","link":"/modules/setup.aspx","target":null,"subMenu":null,"childPages":["/modules/audit/auditsetup.aspx","/modules/audit/audittype.aspx?fromschedule=false","/modules/audit/audittyperegister.aspx","/modules/audit/checklistsetup.aspx","/modules/forms/formsoptions.aspx","/modules/forms/formssetup.aspx","/modules/links/main.aspx","/modules/operationalrisk/riskassesssetup.aspx","/modules/portaladmin/accesstemplates.aspx","/modules/portaladmin/alerts.aspx","/modules/portaladmin/amtables.aspx","/modules/portaladmin/departmentmanagers.aspx","/modules/portaladmin/engineering.aspx","/modules/portaladmin/flightrecordssetup.aspx","/modules/portaladmin/groups.aspx","/modules/portaladmin/leaveadmin.aspx","/modules/portaladmin/locations.aspx","/modules/portaladmin/logbooksetup.aspx","/modules/portaladmin/personnel.aspx","/modules/portaladmin/posetup.aspx","/modules/portaladmin/recency.aspx","/modules/portaladmin/recencytypecombine.aspx","/modules/portaladmin/rostering.aspx","/modules/portaladmin/timesheetsetup.aspx","/modules/portaladmin/wps.aspx","/modules/recency/recencychecksetup.aspx","/modules/riskregister/riskregistersetup.aspx","/modules/safety/discretionreportsetup.aspx","/modules/safetynew/occurrenceoptions.aspx","/modules/safetynew/riskmatrixsetup.aspx","/modules/safetynew/safetyformsetup.aspx","/modules/scheduling/globalsettings.aspx","/modules/scheduling/setup.aspx","/modules/scheduling/taskstatussetup.aspx"],"tags":null,"searchText":null,"tooltipText":null}],"iconClass":"am-general-circle"},{"name":"Library","items":[{"function":null,"name":"Library","iconClass":"am-library","link":"/modules/doclibrary/main.aspx","target":null,"subMenu":null,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"iconClass":null},{"name":"Global Reporting","items":[{"function":null,"name":"Global Reporting","iconClass":"am-reporting","link":"/modules/reporting/globalreports.aspx","target":null,"subMenu":null,"childPages":["/modules/reporting/reportwizard.aspx","modules/reporting/error.aspx"],"tags":null,"searchText":null,"tooltipText":null}],"iconClass":null}],"mode":1}</script><script id="scriptSubMenuData" type="application/json">null</script><script id="scriptSetupMenuData" type="application/json">[{"name":"General","badgeLink":null,"categories":[{"name":"","items":[{"function":null,"name":"Manage Links","link":"/modules/links/main.aspx","target":null,"dontCollapse":false,"childPages":null,"tags":null,"searchText":null,"tooltipText":null}],"dontCollapse":false,"tags":null}],"dontCollapse":false,"searchText":null,"dontUseTabs":false}]</script><script id="scriptAlertData" type="application/json">{"critical":0,"caution":0,"notice":0}</script><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/Common/fonticons.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/Common/MaterialRipple.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/WindowLite.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/BootstrapLite/Window.Bootstrap.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/MenuLite.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/BootstrapLite/Menu.Bootstrap.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/ToolTipLite.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/BootstrapLite/ToolTip.Bootstrap.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/Common/common.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/CalendarLite.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/BootstrapLite/Calendar.Bootstrap.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/InputLite.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="https://d35islomi5rx1v.cloudfront.net/ajaxz/2020.2.512/BootstrapLite/Input.Bootstrap.css" type="text/css" rel="stylesheet" class="Telerik_stylesheet"></head>
+<body id="ctl00_Body" style="margin: 0px 0px 0px 0px; height: 100%;">
+    <form method="post" action="./ReportWizard.aspx?RID=80&amp;V=1" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm" style="height: 100%" autocomplete="off" class="ng-pristine ng-valid ng-scope">
+<div>
+<input type="hidden" name="ctl00_RadScriptManager1_TSM" id="ctl00_RadScriptManager1_TSM" value="" autocomplete="off">
+<input type="hidden" name="ctl00_RadStyleSheetManager1_TSSM" id="ctl00_RadStyleSheetManager1_TSSM" value="" autocomplete="off">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" autocomplete="off">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" autocomplete="off">
+<input type="hidden" name="_VSTATE" id="_VSTATE" value="H4sIAAAAAAAEAN1YW28buxG2NqIulm35ksg5RSExgB/sY0uQ5FuSNmhtyT5xa8Wu5MSPBrXLXbFaLRWSsq2896FAgQJ96w/pr+lf6H9oh7urleQLjs8pUpxTJdlQnBlydvjNN0P9O5bNotni692dN3uv9/ari7lUfrZJ+1yoY5ff5GIo2eyrT4ze5NPHTEh1yonVyScb5LalaN8w8iufiMssomiTfh5QqRrcokbMyhl2NnzEjZgeGs/8ZyybM/KZq1cnivZqfOAp24okVm7WSGafb84Yv96cicdmsuDN6pFH2i49+CPs2GVek3oWFcxzOvlfBpKjXptaFrUOiaQtNXSp7FCqnPxyk0ruXlMrMNF+ZTbEBXXBvFu6pO3Sx5PSWLaFp0Vb+BMVknHvXbVcLZeqpd1KtbSzu4VrA1cNBH3n0YESxN3C54O2y8zf0+EF71LvXaVasQndf13Z222TbWvHyL+YdrRlCtZX0rEWczE7F4tetYA6hYRTSGY240Yh5VhZX4w+33WZWJfMs/jNV/NYH9ujXllGGs4pBWemDzJ+QW8VWrikrsl7FP+Oe0S+Ah2kpYU0yl1Sy6PSIsMtXK3iBhlicG4HNJIjeCR8SICuUdnWUAjG5R29iD+eX/+ucYE3cbn6tlzesIyMv3PyE5MMouoAwGw9gUyXSImWSK/IPJvjzwNmdm2IlGUYWf0iKWf8IqgzwmIhbiRycxOOZFDGJtgmxb5LPBp4lE8zz6Oio3ouSh0wYQpiq9DBOdggNmn+wjeXegmbuwCvIu8DzIJXm0PpOjcHPeopObGAMbnAUrC/zVxaVBDfIo+M0TEXvcgQreJ1j2M5cBzIPDh5iWWH33gbQUpFCy4GC/ZIH/6JLhXReqlTbhJtOeFL/IFYOC5v08gqfk4cOmGBJi1mA4uBnNgmfQ7I5BBCd8JqKcr6udH7LEASMxOfcqfNeRdrlGRz8fz8mVdzGYQMnmYX5QQFPHv4OmQezUTr5Y3CbMdHJ1gU5h9WqoZKmeDgY+H+PhLisP9ipYQD9sOa86iA90kQUzGgEWM+8LEYKAAF4Uv2hQgLr+u1cQVzG1c23k4vYAH2fKBrFP3iOwgjcQOFo1v9rFObQHpK9M3RrUndt/6zvH/mbV1yYb3VD51t2su4D1I78OKbA9etCXqDTe4pwuDkucC011dDDSZNoUAvKduIGUC8RtxARsJI5lK+wHr6E/LGDj9ARTf3qajGe21+yG81nX89QloM3ilmaUSFg/hogEaDxGiQHA1So0F6rBxVJcPnKB8Pz8bDoArFgijnjl1VB/BgSHcq7oYYALGFVo+JVB/INXP8PPoA+XrSg/TQSecLmszpqJLDbDR3MFD8nEt1SMyuA4vfs/TZNKVHWnZ37XNBr4O1s+Hap9QOlp4PQ/qB9OhJHSHqFQ8+opcfJW3ym/eUAAvJA9mC4zEVF7KDlkPg1ajrtvrEBDgbBlppAX2cqY4uiZ7qyDoZgu7KQy7MEyH4TeTA7AVTUKVd5niZbzdaQwl4GMEE/qvBcoK7svSeC/ZFQ9b1dY0pR86JZYEjNlp+ICxxPYpe9AQo/qS+vtELtwoyC/JR25QmlLZwT5pcuKw9huNOqaz/fD8Q2/v7ZNfc3au82d6h5ddvwrguTwckODU9YnwgJ8M1RsOCH64xFjJ+vDSbE4XSDfjgIXzQXEB0R9e6QGTRn2J3Uq5GXKglRESDSf2vl4BxFDsE38I9dROIYkdwGB3iORDm/kBdtu4COgrN/Cg02Ef1UtAONcAHFiDSQenRidWNP79EmVafmoy4Gn5Z9LfHY8Bdba4LXzQJNuPprxYQyP4ZtOB3xLDhmX1JaTfz7frjuJ9WnXmgHwFKyqdqUtb8NiYjzAbQ+oWOVD5+9ap1aBhQorJoTpjjBC0AMVr+9Kwwg1hSa2qyzqRewp+M7AfqzG7qk4tm08LUfkEEo6mkMN/zayiBo4ltTfdhlP3ddYXDD01eHXKuJASyP7mBloCPvnsBe+salZyqUbnkD6lNyZ9AaVr4b0uTbpUTk2DwKz0IU9nccn7+lLSpG8EiKZg/AW3xCni+XSzvFivVYrkc/AUc6etbdN/R0Eo4+bi+OaH0+FRG3Xw+zMUDwUhr0NcNCTTGCb2GZF/oY3emkeyrRXUGELMkmGYPOEAs2BiJicKLzGbqnsIR0OtdhZVJhWPouuVEHkwJgyhYd+yfT6pMJdJjTujm4I7C4qRCEypxgP9RAzGH5kd5qxsNoLu/PonutPIF69H/FdfdJ+0OygZIO/Guw6vYz4W44w3m1RMzv2386uBf/0jBV3ILX2f++fcvv6mks7mFwnKYHzonn3cKK/dzJyBsON9Jop4i2f8Dkk5+X7McDy9P4UXdv7zg9dKtK283Rnf8SJzRlxmQWtzUwjn/0q50G4T+EvNbBPBU318lHvSx4hgiiG1dN/Eu7kMTJTHxLMwkbhPIZMy9UK9SLmNBocmzJA5ufdQq4RMbD/kAexRUe1xQ3Hcp2GHq37u0HdxT/f5LX9xAVWCzw5lJS5bxInxDYzX85WoRTnvGevkM5a+uRjVd/+DFBB019AC5q6tcBq2ayi2X16KfaRrEA99FBWUDwQ3zDgDa+soXTNRcbnYr2sAfNag3QC8D0R/0bxjHsExlTSj1nrp9tBsagRPQ8q3Vhx7pMXOtNhACvh8zFy4qu2/W2spr0h5AI5hB208w2/O9NkOgQEP3o4ye4iAY3XWw9DQzUT+/0tyH9n+Y/trIwx9vWH6ioXl11vepzW9xKDIqe9aTjOHY7hnHtq3/ALh2n+qkFQAA" autocomplete="off">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" autocomplete="off">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIYx7gyjkMCq7EA2uJo-LNLlb5bEFw9gFQNsCwwnWOMXyIT9vw2&amp;t=638460238960000000" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+function MenuAboutAM(item) { window.radopen('/Modules/Help/AboutAM.aspx', 'AboutAM'); }
+function HeaderPrintPage() {
+    if(typeof PrintCurrPage === 'function') {
+        PrintCurrPage();
+    } else {
+        var oldTarget = document.forms[0].target;
+        var oldAction = document.forms[0].action;
+        document.forms[0].target = 'print';
+        document.forms[0].action = '/Modules/Reporting/ReportWizard.aspx?RID=80&V=1&Print=1';
+        document.forms[0].submit(); 
+        document.forms[0].target = oldTarget; 
+        document.forms[0].action = oldAction;
+    }
+}
+//]]>
+</script>
+
+<script src="/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CI3DrtHRvw6S-t-wLYqVNF4LCm3QzgejpdeRCm9tXsgtJnk1ZWivMrX8kiJNHzxGoBEZQD2trAuZKi5JK-Y1C_XroF0gp6lTdoCcmcSQxej1OyCmw2&amp;t=15e8b38c" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+var __cultureInfo = {"name":"en-AU","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":".","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":",","CurrencySymbol":"$","NaNSymbol":"NaN","CurrencyNegativePattern":1,"NumberNegativePattern":1,"PercentPositivePattern":1,"PercentNegativePattern":1,"NegativeInfinitySymbol":"-∞","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":".","NumberGroupSeparator":",","CurrencyPositivePattern":0,"PositiveInfinitySymbol":"∞","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":".","PercentGroupSeparator":",","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"AM","Calendar":{"MinSupportedDateTime":"\/Date(-62135596800000)\/","MaxSupportedDateTime":"\/Date(253402300799999)\/","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":"/","FirstDayOfWeek":1,"CalendarWeekRule":0,"FullDateTimePattern":"dddd, d MMMM yyyy HH:mm:ss","LongDatePattern":"dddd, d MMMM yyyy","LongTimePattern":"HH:mm:ss","MonthDayPattern":"d MMMM","PMDesignator":"PM","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"d/MM/yyyy","ShortTimePattern":"HH:mm","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"MMMM yyyy","AbbreviatedDayNames":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"ShortestDayNames":["Su","Mo","Tu","We","Th","Fr","Sa"],"DayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"AbbreviatedMonthNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthNames":["January","February","March","April","May","June","July","August","September","October","November","December",""],"IsReadOnly":false,"NativeCalendarName":"Gregorian Calendar","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthGenitiveNames":["January","February","March","April","May","June","July","August","September","October","November","December",""]},"eras":[1,"A.D.",null,0]};//]]>
+</script>
+
+<script src="/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvpFxbjAGXlh8OPmFCfMIdwJrkridxR6uTMBpIEpWdfH2wuk4lykviVpO0TyhRiH2YKGBp72iZwWlhNb9KRS96XA_8aN8Q-6m6pGcHzKAXK1PcAEJubuUwOUEu18yN46cq03yOXM1&amp;t=74258c30" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OEHqoly84j5dfJf8X1CPn-pAsJXlN2MGEBMAylJPn53gZMy-eFp1jpGVE_yfKm-VCKazge8SEM3qfEJmSORfoRyIwyOunnGpWN6BOpshl1cfigsyUzblEOIT7drzKw8YNgiBZKg1&amp;t=74258c30" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Core.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/jQuery.js" type="text/javascript"></script>
+<script src="/client/dist/js/moment.min.js?V=24.107.15242.0" type="text/javascript"></script>
+<script src="/Includes/Common.js?V=24.107.15242.0" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Ajax/Ajax.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/jQueryPlugins.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/AnimationFramework/AnimationFramework.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Animation/AnimationScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Popup/PopupScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/TouchScrollExtender.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Helpers/IETouchActionManager.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Widgets/Draggable.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Widgets/Resizable.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/ShortCutManager/ShortCutManagerScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/MaterialRipple/MaterialRippleScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Window/RadWindowScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Window/RadWindowManager.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Scrolling/ScrollingScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Navigation/OData/OData.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Navigation/OverlayScript.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Common/Navigation/NavigationScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Menu/RadMenuScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Menu/ContextMenu/RadContextMenuScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Menu/MenuItem/RadMenuItem.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Menu/Views/LiteView.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/ToolTip/RadToolTipScripts.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Calendar/RadCalendarScript.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Calendar/RadCalendarCommonScript.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Calendar/RadDatePicker.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Calendar/RadPickersPopupDirectionEnumeration.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Input/TextBox/RadInputScript.js" type="text/javascript"></script>
+<script src="https://d2i2wahzwrm1n5.cloudfront.net/ajaxz/2020.2.512/Input/DateInput/RadDateInputScript.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$RadScriptManager1', 'aspnetForm', ['tctl00$pnlDebug','','tctl00$ajaxManSU',''], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        
+        <!-- 2020.2.512.45 --><div id="ctl00_ajaxManSU" style="display: none;">
+	<span id="ctl00_ajaxMan" style="display:none;"></span>
+</div>
+        <div id="ctl00_RadWindowManager1" style="display:none;">
+	<div id="ctl00_winAlerts" style="display:none;">
+		<div id="ctl00_winAlerts_C" style="display:none;">
+
+		</div><input id="ctl00_winAlerts_ClientState" name="ctl00_winAlerts_ClientState" type="hidden" autocomplete="off">
+	</div><div id="ctl00_RadWindowManager1_alerttemplate" style="display:none;">
+		<div class="rwDialog rwAlertDialog">
+			<div class="rwDialogContent">
+				<div class="rwDialogMessage">{1}</div>
+			</div>
+			<div class="rwDialogButtons">
+				<button type="button" class="rwOkBtn" onclick="$find('{0}').close(true); return false;">##LOC[OK]##</button>
+			</div>
+		</div>
+		</div><div id="ctl00_RadWindowManager1_prompttemplate" style="display:none;">
+		<div class="rwDialog rwPromptDialog">
+			<div class="rwDialogContent">
+				<div class="rwDialogMessage">{1}</div>
+				<div class="rwPromptInputContainer">
+					<script type="text/javascript">
+						function RadWindowprompt_detectenter(id, ev, input) {
+							if (!ev) ev = window.event;
+							if (ev.keyCode == 13) {
+								var but = input.parentNode.parentNode.parentNode.getElementsByTagName("button")[0];
+								if (but) {
+									if (but.click) {
+										but.click();
+									}
+									else if (but.onclick) {
+										but.focus();
+										var click = but.onclick;
+										but.onclick = null;
+										if (click) click.call(but);
+									}
+								}
+								return false;
+							}
+							else return true;
+						}
+					</script>
+					<input title="Enter Value" onkeydown="return RadWindowprompt_detectenter('{0}', event, this);" type="text" class="rwPromptInput radPreventDecorate" value="{2}">
+				</div>
+			</div>
+			<div class="rwDialogButtons">
+				<button type="button" class="rwOkBtn" onclick="$find('{0}').close(this.parentNode.parentNode.getElementsByTagName('input')[0].value); return false;">##LOC[OK]##</button>
+				<button type="button" class="rwCancelBtn" onclick="$find('{0}').close(null); return false;">##LOC[Cancel]##</button>
+			</div>
+		</div>
+		</div><div id="ctl00_RadWindowManager1_confirmtemplate" style="display:none;">
+		<div class="rwDialog rwConfirmDialog">
+			<div class="rwDialogContent">
+				<div class="rwDialogMessage">{1}</div>
+			</div>
+			<div class="rwDialogButtons">
+				<button type="button" class="rwOkBtn" onclick="$find('{0}').close(true); return false;">##LOC[OK]##</button>
+				<button type="button" class="rwCancelBtn" onclick="$find('{0}').close(false); return false;">##LOC[Cancel]##</button>
+			</div>
+		</div>
+		</div><input id="ctl00_RadWindowManager1_ClientState" name="ctl00_RadWindowManager1_ClientState" type="hidden" autocomplete="off">
+</div>
+        <div class="am-page ng-scope" ng-controller="amMenuController">
+            <div id="ctl00_header">
+                <div class="am-header">
+                    <div style="float: right">
+                        
+                    </div>
+                    <div class="am-header-main">
+                        <a href="/">
+                            <img src="/images/master/logo-sm.png" class="am-header-logo">
+                        </a>
+                    </div>
+                    <div class="am-header-info">
+                        <span class="am-info">
+                            <a href="/" title="Navigate To Home"><span class="fa fa-home"></span></a>
+                        </span>
+                        <span id="ctl00_lblWelcomeMessage" class="am-info">Welcome Jonas!</span>
+                        <span id="ctl00_lblTodaysDate" class="am-info">Wednesday, 22 May 2024</span>
+                        
+
+<script type="text/javascript">
+// <![CDATA[
+var MenuID = "ctl00_Clock1_RadClockMenu";
+var MenuInstance = null;
+var link = null;
+var count = 0;
+//]]>
+</script>
+<script src="/Controls/Header/Clock.js?V=24.107.15242.0" type="text/javascript"></script>
+<span id="ctl00_Clock1_spanClock" class="am-info">
+    <span id="clock-link">
+        <span id="tdHour">
+            13
+        </span>
+        <span style="width: 10px; text-align: center;">
+            <span id="colon">:</span>
+        </span>
+        <span id="tdMinute">
+            04
+        </span>
+        <span id="tdTZ">
+            &nbsp;(GMT + 02:00)
+        </span>
+    </span>
+</span>
+<div tabindex="0" id="ctl00_Clock1_RadClockMenu" dir="rtl" style="display: none; visibility: visible; z-index: 7000;">
+	<div class="RadMenu RadMenu_Bootstrap RadMenu_Context RadMenu_Bootstrap_Context RadMenu_rtl RadMenu_Bootstrap_rtl RadMenu_Context_rtl RadMenu_Bootstrap_Context_rtl" dir="ltr" style="display: none; visibility: visible; z-index: 7000;" id="ctl00_Clock1_RadClockMenu_detached">
+		<ul class="rmActive rmVertical rmGroup rmLevel1" style="float: left;">
+			<li class="rmItem rmFirst rmLast"><span class="rmLink rmExpand rmExpandLeft" id="RadMenuItem1" tabindex="0">change gmt offset</span><div class="rmSlide">
+				<ul class="rmVertical rmGroup rmLevel2">
+					<li class="rmItem rmFirst"><span class="rmLink" id="HrItem" tabindex="0">hour</span><div class="rmSlide">
+						<ul class="rmVertical rmGroup rmLevel3">
+							<li class="rmItem rmFirst"><span class="rmLink" id="plusItem" tabindex="0">+</span><div class="rmSlide">
+								<ul class="rmVertical rmGroup rmLevel4">
+									<li class="rmItem rmFirst"><span class="rmLink" tabindex="0">+14</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+13</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+12</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+11</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+10</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+9</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+8</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+7</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+6</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+5</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+4</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+3</span></li><li class="rmItem "><span class="rmLink" tabindex="0" style="font-weight:100">+2</span></li><li class="rmItem "><span class="rmLink" tabindex="0">+1</span></li><li class="rmItem rmLast"><span class="rmLink" tabindex="0">+0</span></li>
+								</ul>
+							</div></li><li class="rmItem rmLast"><span class="rmLink" id="minusItem" tabindex="0">-</span><div class="rmSlide">
+								<ul class="rmVertical rmGroup rmLevel4">
+									<li class="rmItem rmFirst"><span class="rmLink" tabindex="0">-14</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-13</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-12</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-11</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-10</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-9</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-8</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-7</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-6</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-5</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-4</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-3</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-2</span></li><li class="rmItem "><span class="rmLink" tabindex="0">-1</span></li><li class="rmItem rmLast"><span class="rmLink" tabindex="0">-0</span></li>
+								</ul>
+							</div></li>
+						</ul>
+					</div></li><li class="rmItem "><span class="rmLink" id="MinItem" tabindex="0">minute</span><div class="rmSlide">
+						<ul class="rmVertical rmGroup rmLevel3">
+							<li class="rmItem rmFirst"><span class="rmLink" tabindex="0" style="font-weight:100">00</span></li><li class="rmItem "><span class="rmLink" tabindex="0">15</span></li><li class="rmItem "><span class="rmLink" tabindex="0">30</span></li><li class="rmItem rmLast"><span class="rmLink" tabindex="0">45</span></li>
+						</ul>
+					</div></li><li class="rmItem rmLast"><span class="rmLink" id="RadMenuItem4" tabindex="0">set from local computer</span></li>
+				</ul>
+			</div></li>
+		</ul>
+	</div><input id="ctl00_Clock1_RadClockMenu_ClientState" name="ctl00_Clock1_RadClockMenu_ClientState" type="hidden" autocomplete="off">
+</div>
+
+                        <span class="am-info">
+                            <a href="javascript:HeaderPrintPage()" title="Print Page"><span class="fa fa-print fa-lg"></span></a>
+                        </span>
+                        
+                        <span id="ctl00_QuickFind1_spanQuickFind" class="am-info quickfind">
+    <span id="header-quickfind-detail">
+        <span tabindex="-1" role="presentation" class="k-widget k-autocomplete k-header k-state-default" style=""><input name="ctl00$QuickFind1$quickFindInput" type="text" id="ctl00_QuickFind1_quickFindInput" placeholder="Type at least 3 letters..." data-role="autocomplete" class="k-input" autocomplete="off" role="textbox" aria-haspopup="true" aria-disabled="false" aria-readonly="false" aria-owns="ctl00_QuickFind1_quickFindInput_listbox" aria-autocomplete="list" style="width: 100%;"><span unselectable="on" class="k-icon k-clear-value k-i-close k-hidden" title="clear" role="button" tabindex="-1"></span><span class="k-icon k-i-loading" style="display:none"></span></span>
+        <a id="ctl00_QuickFind1_lbGo" title="Perform Search" class="fa fa-search fa-lg" href="javascript:__doPostBack('ctl00$QuickFind1$lbGo','')"></a>
+        <span id="ctl00_QuickFind1_spanHelp" class="fa fa-info-circle fa-lg"></span>
+    </span>
+</span>
+<div id="ctl00_QuickFind1_rttHelp" style="display:none;position:absolute;">
+	
+    Start typing to search through the following items:<br>
+    
+            <span id="ctl00_QuickFind1_rptItems_ctl00_icon" class="fa fa-plane"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl00_name">Aircraft</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl00_description"></span>
+            <br>
+        
+            <span id="ctl00_QuickFind1_rptItems_ctl01_icon" class="fa fas fa-folder-open"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl01_name">Documents</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl01_description"></span>
+            <br>
+        
+            <span id="ctl00_QuickFind1_rptItems_ctl02_icon" class="fa fa-file-text-o"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl02_name">Forms</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl02_description"> (no suggestions shown)</span>
+            <br>
+        
+            <span id="ctl00_QuickFind1_rptItems_ctl03_icon" class="fa fa-map-marker"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl03_name">Location</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl03_description"></span>
+            <br>
+        
+            <span id="ctl00_QuickFind1_rptItems_ctl04_icon" class="fa fa-globe"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl04_name">Page</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl04_description"></span>
+            <br>
+        
+            <span id="ctl00_QuickFind1_rptItems_ctl05_icon" class="fa fa-user"></span>
+            <span id="ctl00_QuickFind1_rptItems_ctl05_name">Personnel</span>
+            <span id="ctl00_QuickFind1_rptItems_ctl05_description"></span>
+            <br>
+        
+<input id="ctl00_QuickFind1_rttHelp_ClientState" name="ctl00_QuickFind1_rttHelp_ClientState" type="hidden" autocomplete="off">
+</div>
+
+    <script type="text/javascript">
+
+        (function () {
+            var field = $("input[id$='quickFindInput']");
+            var button = $("a[id$='lbGo']");
+
+            var baseUrl = "/api/QuickFind/";
+
+            function getUrl() {
+                return baseUrl + field.val();
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        url: getUrl,
+                        type: "GET",
+                        dataType: "json"
+                    }
+                }
+            });
+            
+            field.kendoAutoComplete({
+                minLength: 3,
+                enforceMinLength: true,
+                delay: 500,
+                autoWidth: true,
+                dataSource: dataSource,
+                dataTextField: "text",
+                filter: "contains",
+                template: '<a href="#:data.link#" target="#:data.target#"><span class="quickfind-icon fa #:data.areaIcon#"></span> #:data.text#</a>'
+            });
+            //fix transparent background
+            $("div.k-list-container[id$=quickFindInput-list]").removeClass("k-reset");
+            field.on('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    if (button) {
+                        button[0].click();
+                    }
+                }
+            });
+        })();
+
+    </script>
+
+
+                        <a id="ctl00_lnkbtnLogout" class="am-header-logout" href="javascript:__doPostBack('ctl00$lnkbtnLogout','')">Log Out</a>
+                        <a id="ctl00_lbSetup" title="Site Settings" class="fa fa-cogs fa-lg pull-right" href="/modules/setup.aspx" style="margin-right: 10px"></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="ctl00_amMenu" ng-show="!print">
+                <ul id="horizontal-menu" ng-show="menuMode == 2" data-role="menu" class="k-widget k-reset k-header k-menu k-menu-horizontal ng-hide" role="menubar" tabindex="0"><li class="k-item k-state-default k-first" role="menuitem" aria-haspopup="true"><span class="k-link">My Profile<span class="k-icon  k-i-arrow-60-down"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/useraccess.aspx">Access Levels</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/changepassword.aspx">Change Password</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/mycheckforms.aspx">Check Forms</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/details.aspx">Details</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/documentsimages.aspx">Documents &amp; Images</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/endorsements.aspx">Endorsements</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/leave.aspx">Entitlements</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/exam/undertake/main.aspx">Exams</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/pilotinfo.aspx">Log Book</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/alerts.aspx">Manual Alerts</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/recency.aspx">Recency</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/roster.aspx">Rosters</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/schedule.aspx">Schedule</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/timesheet.aspx">Timesheets</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/profile/preferences.aspx">User Preferences</a></li></ul></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Operations<span class="k-icon  k-i-arrow-60-down"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/aircraft/main.aspx">Aircraft</a></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Check Forms<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/recency/checkformtemplateregister.aspx">Check Form Templates</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/recency/checkformregister.aspx">Check Forms</a></li></ul></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/courses/courseregister.aspx">Courses</a></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/safety/discretionregister.aspx">Discretion Reports</a></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/flightrecords/main.aspx">Flight Records</a></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/forms/formregister.aspx">Form Register</a></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Locations<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/portaladmin/baseregister.aspx">Base Register</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/location/locationregister.aspx">Location Register</a></li></ul></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/operationalrisk/main.aspx">Op. Risk Ass.</a></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Personnel<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/contacts/contactregister.aspx?ctype=personnel">Personnel</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/contacts/contactregister.aspx?ctype=contact">Contacts</a></li></ul></li><li class="k-item k-state-default" target="roster" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/rostering/main.aspx">Roster</a></li><li class="k-item k-state-default k-last" role="menuitem" aria-haspopup="true"><span class="k-link">Scheduling<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/scheduling/main.aspx">Scheduler</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/scheduling/register.aspx">Schedule Register</a></li></ul></li></ul></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">General<span class="k-icon  k-i-arrow-60-down"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="undefined" role="menuitem" aria-haspopup="true"><span class="k-link">Dashboards<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" role="menuitem" aria-haspopup="true"><span class="k-link">Recency Dashboard<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-last k-first" target="null" dontcollapse="true" role="menuitem"><a class="k-link" href="/modules/dashboard/am/dashboard.aspx?recencydashboard#/recencydashboard/-1">Getting Started</a></li></ul></li><li class="k-item k-state-default k-last" role="menuitem" aria-haspopup="true"><span class="k-link">Roster Dashboard<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-last k-first" target="null" dontcollapse="true" role="menuitem"><a class="k-link" href="/modules/pwa/RedirectToPWA.aspx?pwaUrl=%2Fapp%2F%23%2Fdashboard%2Froster">Roster Dashboard</a></li></ul></li></ul></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Help<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://wiki.airmaestro.com.au/display/AMKB">Knowledge Base</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://help.avinet.com.au">Ask a Question</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://ideas.avinet.com.au">Ideas Portal</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://avinet.atlassian.net/wiki/spaces/AMKB/pages/1628340225/Release+Notes">Release Notes</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.airmaestro.com.au">Avinet Website</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/help/dutycodereference.aspx">Duty Code Reference</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://vimeo.com/avinetptyltd">Video Help</a></li><li class="k-item k-state-default k-last" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="https://avinet.atlassian.net/wiki/spaces/AMKB/pages/1441824769/Open+Source+Licenses">Open Source Licenses</a></li></ul></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Organisation Links<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.airservices.gov.au">Air Services</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.atsb.gov.au">ATSB</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.bom.gov.au">Bureau of Meteorology</a></li><li class="k-item k-state-default" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.casa.gov.au">CASA</a></li><li class="k-item k-state-default k-last" target="_blank" dontcollapse="false" role="menuitem"><a class="k-link" href="http://www.dangerousgoods.com.au/">Dangerous Goods</a></li></ul></li><li class="k-item k-state-default" role="menuitem" aria-haspopup="true"><span class="k-link">Reporting<span class="k-icon  k-i-arrow-60-right"></span></span><ul class="k-group k-menu-group" style="display:none" role="menu" aria-hidden="true"><li class="k-item k-state-default k-first" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/reporting/main.aspx?type=aircraft">Recency Aircraft</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/reporting/main.aspx">Recency Personnel</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/rostering/calendarwizard.aspx">Roster Calendar</a></li><li class="k-item k-state-default" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/safety/rosterexceedences.aspx">Roster Compliance</a></li><li class="k-item k-state-default k-last" target="null" dontcollapse="false" role="menuitem"><a class="k-link" href="/modules/recency/scheduling/scheduledrecencyitems.aspx">Scheduled Recency</a></li></ul></li><li class="k-item k-state-default k-last" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/setup.aspx">Setup</a></li></ul></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/doclibrary/main.aspx">Library</a></li><li class="k-item k-state-default" target="null" dontcollapse="undefined" role="menuitem"><a class="k-link" href="/modules/reporting/globalreports.aspx">Global Reporting</a></li><li class="k-item k-state-default k-last" target="null" role="menuitem"><a class="k-link" href="/modules/links/main.aspx">Manage Links</a></li></ul>
+                <span style="display: none;" ng-click="menuModeToggled()" data-id="toggleMenu"></span>
+                <div class="menu-container">
+                    <div class="am-menu" ng-show="menuMode == 1">
+                        <!-- ngIf: menuExpanded() -->
+                        <a href="" ng-click="menuToggled()">
+                            <div class="menu-toggle">
+                                <span class="fa fa-angle-double-right fa-lg" ng-attr-title="{{ (menuExpanded()?'Collapse Menu':'Expand Menu') }}" ng-class="{ 'fa-angle-double-right fa-lg': !menuExpanded(), 'fa-angle-double-left fa-lg': menuExpanded() }" title="Expand Menu"></span>
+                            </div>
+                        </a>
+                        <div class="menu-alerts text-center menu-alerts-collapsed" ng-class="{'menu-alerts-collapsed': !menuExpanded()}">
+                            <!-- ngIf: showCritical() -->
+                            <!-- ngIf: showWarning() -->
+                            <!-- ngIf: showNotice() -->
+                        </div>
+                        <ul>
+                            <!-- ngRepeat: category in menuItems --><!-- ngIf: !category.expanded && category.items.length > 1 -->
+                            <!-- ngIf: category.expanded || category.items.length == 1 --><li class="category ng-scope" ng-repeat-end="" ng-if="category.expanded || category.items.length == 1">
+                                <ul>
+                                    <!-- ngIf: category.items.length > 1 -->
+                                    <!-- ngRepeat: item in category.items --><li class="item ng-scope item-parent" ng-class="{'item-parent': category.items.length == 1, 'active': isCurrentMenuItem(item)}" ng-repeat="item in category.items">
+                                        <a ng-href="" ng-click="menuItemClicked(item)" target="" title="My Profile">
+                                            <span class="am am-profile"></span>
+                                                <span class="label ng-binding" ng-style="
+                                                item.name === 'Hazard and Risk Register' &amp;&amp;
+                                                {
+                                                    'white-space':'normal',
+                                                    'width':'120px',
+                                                    'text-align':'left',
+                                                    'vertical-align':'top'
+                                                }" ng-bind-html="item.name | unsafe">My Profile</span>
+                                        </a>
+                                    </li><!-- end ngRepeat: item in category.items -->
+                                </ul>
+                            </li><!-- end ngIf: category.expanded || category.items.length == 1 --><!-- end ngRepeat: category in menuItems --><!-- ngIf: !category.expanded && category.items.length > 1 --><li class="category ng-scope" ng-repeat-start="category in menuItems" ng-if="!category.expanded &amp;&amp; category.items.length > 1">
+                                <ul>
+                                    <li class="item item-parent parent-category" ng-class="{'active': isCurrentMenuCategory(category)}">
+                                        <a href="" ng-click="menuCategoryClicked(category)" title="Operations">
+                                            <span class="am am-operations-circle"></span>
+                                            <span class="label ng-binding">Operations</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li><!-- end ngIf: !category.expanded && category.items.length > 1 -->
+                            <!-- ngIf: category.expanded || category.items.length == 1 --><!-- end ngRepeat: category in menuItems --><!-- ngIf: !category.expanded && category.items.length > 1 --><li class="category ng-scope" ng-repeat-start="category in menuItems" ng-if="!category.expanded &amp;&amp; category.items.length > 1">
+                                <ul>
+                                    <li class="item item-parent parent-category" ng-class="{'active': isCurrentMenuCategory(category)}">
+                                        <a href="" ng-click="menuCategoryClicked(category)" title="General">
+                                            <span class="am am-general-circle"></span>
+                                            <span class="label ng-binding">General</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li><!-- end ngIf: !category.expanded && category.items.length > 1 -->
+                            <!-- ngIf: category.expanded || category.items.length == 1 --><!-- end ngRepeat: category in menuItems --><!-- ngIf: !category.expanded && category.items.length > 1 -->
+                            <!-- ngIf: category.expanded || category.items.length == 1 --><li class="category ng-scope" ng-repeat-end="" ng-if="category.expanded || category.items.length == 1">
+                                <ul>
+                                    <!-- ngIf: category.items.length > 1 -->
+                                    <!-- ngRepeat: item in category.items --><li class="item ng-scope item-parent" ng-class="{'item-parent': category.items.length == 1, 'active': isCurrentMenuItem(item)}" ng-repeat="item in category.items">
+                                        <a ng-href="/modules/doclibrary/main.aspx" ng-click="menuItemClicked(item)" target="" title="Library" href="/modules/doclibrary/main.aspx">
+                                            <span class="am am-library"></span>
+                                                <span class="label ng-binding" ng-style="
+                                                item.name === 'Hazard and Risk Register' &amp;&amp;
+                                                {
+                                                    'white-space':'normal',
+                                                    'width':'120px',
+                                                    'text-align':'left',
+                                                    'vertical-align':'top'
+                                                }" ng-bind-html="item.name | unsafe">Library</span>
+                                        </a>
+                                    </li><!-- end ngRepeat: item in category.items -->
+                                </ul>
+                            </li><!-- end ngIf: category.expanded || category.items.length == 1 --><!-- end ngRepeat: category in menuItems --><!-- ngIf: !category.expanded && category.items.length > 1 -->
+                            <!-- ngIf: category.expanded || category.items.length == 1 --><li class="category ng-scope" ng-repeat-end="" ng-if="category.expanded || category.items.length == 1">
+                                <ul>
+                                    <!-- ngIf: category.items.length > 1 -->
+                                    <!-- ngRepeat: item in category.items --><li class="item ng-scope item-parent active" ng-class="{'item-parent': category.items.length == 1, 'active': isCurrentMenuItem(item)}" ng-repeat="item in category.items">
+                                        <a ng-href="/modules/reporting/globalreports.aspx" ng-click="menuItemClicked(item)" target="" title="Global Reporting" href="/modules/reporting/globalreports.aspx">
+                                            <span class="am am-reporting"></span>
+                                                <span class="label ng-binding" ng-style="
+                                                item.name === 'Hazard and Risk Register' &amp;&amp;
+                                                {
+                                                    'white-space':'normal',
+                                                    'width':'120px',
+                                                    'text-align':'left',
+                                                    'vertical-align':'top'
+                                                }" ng-bind-html="item.name | unsafe">Global Reporting</span>
+                                        </a>
+                                    </li><!-- end ngRepeat: item in category.items -->
+                                </ul>
+                            </li><!-- end ngIf: category.expanded || category.items.length == 1 --><!-- end ngRepeat: category in menuItems -->
+                        </ul>
+                    </div>
+                    <!-- ngIf: !useTabMenu() --><div ng-if="!useTabMenu()" ng-class="{'am-submenu-temp': subMenu.temp}" class="am-submenu ng-scope">
+                        <ul class="nav">
+                            <li class="submenu-heading">
+                                <a>
+                                    <span ng-bind-html="subMenu.name | unsafe" class="ng-binding"></span>
+                                    <!-- ngIf: subMenu.temp -->
+                                    <!-- ngIf: !subMenu.temp && subMenu.name == 'Dashboards' -->
+                                </a>
+                            </li>
+                            <!-- ngIf: subMenu.badgeLink -->
+                            <!-- ngRepeat: category in subMenu.categories -->
+                        </ul>
+                    </div><!-- end ngIf: !useTabMenu() -->
+                </div>
+            </div>
+
+            <div class="am-content">
+                <!-- ngIf: useTabMenu() -->
+                
+                <div id="ctl00_contentMain" class="am-content-main container-fluid">
+                    
+    
+
+        <script type="text/javascript" language="javascript">
+            var changesMade = false;
+            function validateStep(i) {
+                if ('False' == "True" || i > 2147483647){
+                    document.getElementById('ApplyChanges').value = true;
+                } else {
+                    if (changesMade) {
+                        document.getElementById('ApplyChanges').value = confirm('Do you wish to apply the changes made?');
+                    } else {
+                        document.getElementById('ApplyChanges').value = false;
+                    }
+                }
+                if (document.getElementById('ApplyChanges').value == "true") {
+                    //make sure Page_IsValid is up to date with the state of the validators
+                    ValidatorUpdateIsValid();
+                    return Page_IsValid;
+                }
+            }
+
+            var expandedNodeChecked = null;
+            function nodePopulating(sender, eventArgs) {
+                var node = eventArgs.get_node();
+                var context = eventArgs.get_context();
+                expandedNodeChecked = eventArgs.get_node().get_checked();
+            }
+
+            function nodePopulated(sender, eventArgs) {
+                if (expandedNodeChecked != null) {
+                    var parentNode = eventArgs.get_node();
+                    var childNodes = parentNode.get_nodes();
+                    var childNodeCount = childNodes.get_count();
+                    for (var nodeIndex = 0; nodeIndex < childNodeCount; nodeIndex++) {
+                        var childNode = childNodes.getNode(nodeIndex);
+                        childNode.set_checked(expandedNodeChecked);
+                        if (expandedNodeChecked == true)
+                            childNode.set_expanded(true);
+                    }
+                }
+            }
+
+            function nodeChecked(sender, eventArgs) {
+                var node = eventArgs.get_node();
+                node.set_expanded(true);
+            }
+
+            function UpdateAllChildren(nodes, checked, recurse) {
+                var i;
+                for (i = 0; i < nodes.get_count(); i++) {
+                    if (!nodes.getNode(i).get_enabled())
+                        continue;
+                    if (checked) {
+                        nodes.getNode(i).check();
+                        if (nodes.getNode(i).get_expandMode() == 2) {
+                            if (recurse) {
+                                nodes.getNode(i).get_treeView().trackChanges();
+                                nodes.getNode(i).set_value(nodes.getNode(i).get_value() + "*");
+                                nodes.getNode(i).get_treeView().commitChanges();
+                                nodes.getNode(i).expand();
+                            }
+                        } else
+                            UpdateAllChildren(nodes.getNode(i).get_nodes(), checked, false);
+                    }
+                    else {
+                        nodes.getNode(i).set_checked(false);
+                        if (nodes.getNode(i).get_expandMode() == 2) {
+                            if (recurse) {
+                                nodes.getNode(i).get_treeView().trackChanges();
+                                nodes.getNode(i).set_value(nodes.getNode(i).get_value() + "^");
+                                nodes.getNode(i).get_treeView().commitChanges();
+                                nodes.getNode(i).expand();
+                            }
+                        } else
+                            UpdateAllChildren(nodes.getNode(i).get_nodes(), checked, false);
+                    }
+                }
+            }
+
+            function UpdateAllParents(node) {
+                if (node.get_parent() != null) {
+                    var allNodesChecked = true;
+                    var myParent = node.get_parent();
+                    for (i = 0; i < myParent.get_nodes().get_count(); i++) {
+                        if (!myParent.get_nodes().getNode(i).get_checkBoxElement().checked) {
+                            allNodesChecked = false;
+                            break;
+                        }
+                    }
+                    try { myParent.set_checked(allNodesChecked); UpdateAllParents(myParent); } catch (ex) { }
+
+                }
+            }
+            var dontClose = false;
+
+            function clientNodeChecking(sender, eventArgs) {
+                var childNodes = eventArgs.get_node().get_nodes();
+                var isChecked = eventArgs.get_node().get_checkBoxElement().checked;
+                var node = eventArgs.get_node();
+                if (!node.get_expanded()) {
+                    if (node.get_expandMode() == 2) {
+                        sender.trackChanges();
+                        node.set_value(node.get_value() + (isChecked ? "*" : "^"));
+                        sender.commitChanges();
+                    }
+                    node.expand();
+                }
+                UpdateAllChildren(childNodes, isChecked, true);
+                UpdateAllParents(node);
+            }
+        </script>
+
+    
+    <input name="ctl00$Content$RID" type="hidden" id="ctl00_Content_RID" value="80" autocomplete="off">
+    <input type="hidden" id="ApplyChanges" name="ApplyChanges" value="true" autocomplete="off">
+    <div class="container-fluid">
+        <div>
+            <h1 id="ctl00_Content_hHeading" class="inline-heading">Basic Logbook </h1>
+            <span class="header-buttons">
+                
+                
+            </span>
+        </div>
+        
+                <ol class="breadcrumb">
+            
+                <li id="ctl00_Content_rptMenu_ctl01_liItem" class="active">1. Report Viewer</li>
+            
+                </ol>
+            
+        <h2 id="ctl00_Content_hSubHeading">Reporting Wizard (Step 1 of 1): Report Viewer</h2>
+        
+<style type="text/css">
+    #browserReport button{
+        width: 120px;
+        margin: 5px;
+    }
+    .watermark {
+        font-size: 68px;
+        font-weight: bold;
+        transform: rotate(25deg);
+        opacity: 0.25;
+        position: absolute;
+        margin:125px;
+    }
+    .watermark p {
+        text-align: center;
+    }
+    .btn-export-toggle {
+        border-left: 1px solid white;
+    }
+</style>
+<script type="text/javascript">
+    function ExportButton_Click(sender) {
+        let $mainBtn = $(sender).parents("div.btn-group").first().find("a[id$='ExportMain']").first();
+        let $btnLabel = $mainBtn.find("span[id$='ExportMain']").first();
+
+        // Get elements to build a label to replace the main button's text with
+        let exportType = $(sender).data("exporttype");
+        let fileExtension = $(sender).data("fileext");
+
+        $btnLabel.text(exportType + " (" + fileExtension + ")");
+    }
+</script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="ctl00_Content_Dynamic_ctl00" style="color:Red;display:none;">
+
+</div>
+            
+<div class="panel panel-default filter-panel">
+    <div class="panel-heading">
+        <h3 id="ctl00_Content_Dynamic_CurrentFilter59_hFilterHeading" class="panel-title">AllCrew contains or empty</h3>
+    </div>
+    <div class="panel-body">
+        
+            <table cellpadding="0" cellspacing="0">
+                
+                <tbody><tr>
+                    <td>
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td valign="bottom">
+                                    
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <input name="ctl00$Content$Dynamic$CurrentFilter59$tbTextCompare" type="text" value="Mathias Jonsson" id="ctl00_Content_Dynamic_CurrentFilter59_tbTextCompare" class="form-control">
+                                </td>
+                                <td>&nbsp;
+                                    <span id="ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare" style="color:Red;visibility:hidden;">*</span>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                
+            </tbody></table>
+    </div>
+</div>
+
+    <script type="text/javascript">
+
+</script>
+
+<div class="panel panel-default filter-panel">
+    <div class="panel-heading">
+        <h3 id="ctl00_Content_Dynamic_CurrentFilter60_hFilterHeading" class="panel-title">FltDate after or empty</h3>
+    </div>
+    <div class="panel-body">
+        <div id="calendarContainerWS" style="display: none;">
+            <div id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS" class="RadCalendar RadCalendar_Bootstrap">
+	<div class="rcTitlebar">
+		<a id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_FNP" title="<<" href="#"><img alt="<<" style="border:0px;"></a><a id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_NP" title="<" href="#"><img alt="<" style="border:0px;"></a><div class="rcNextButtons">
+			<a id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_NN" title=">" href="#"><img alt=">" style="border:0px;"></a><a id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_FNN" title=">>" href="#"><img alt=">>" style="border:0px;"></a>
+		</div><span id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Title" class="rcTitle">May 2024</span>
+	</div><div class="rcMain">
+		<table id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top" class="rcMainTable" cellpadding="0" border="0">
+			<caption>
+				<span style="display:none;">May 2024</span>
+			</caption><thead>
+				<tr class="rcWeek">
+					<th class="rcViewSel" scope="col">&nbsp;</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_1" title="Sunday" scope="col">S</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_2" title="Monday" scope="col">M</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_3" title="Tuesday" scope="col">T</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_4" title="Wednesday" scope="col">W</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_5" title="Thursday" scope="col">T</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_6" title="Friday" scope="col">F</th><th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_cs_7" title="Saturday" scope="col">S</th>
+				</tr>
+			</thead><tbody>
+				<tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_1" scope="row">18</th><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td title="Wednesday, May 01, 2024"><a href="#">1</a></td><td title="Thursday, May 02, 2024"><a href="#">2</a></td><td title="Friday, May 03, 2024"><a href="#">3</a></td><td class="rcWeekend" title="Saturday, May 04, 2024"><a href="#">4</a></td>
+				</tr><tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_2" scope="row">19</th><td class="rcWeekend" title="Sunday, May 05, 2024"><a href="#">5</a></td><td title="Monday, May 06, 2024"><a href="#">6</a></td><td title="Tuesday, May 07, 2024"><a href="#">7</a></td><td title="Wednesday, May 08, 2024"><a href="#">8</a></td><td title="Thursday, May 09, 2024"><a href="#">9</a></td><td title="Friday, May 10, 2024"><a href="#">10</a></td><td class="rcWeekend" title="Saturday, May 11, 2024"><a href="#">11</a></td>
+				</tr><tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_3" scope="row">20</th><td class="rcWeekend" title="Sunday, May 12, 2024"><a href="#">12</a></td><td title="Monday, May 13, 2024"><a href="#">13</a></td><td title="Tuesday, May 14, 2024"><a href="#">14</a></td><td title="Wednesday, May 15, 2024"><a href="#">15</a></td><td title="Thursday, May 16, 2024"><a href="#">16</a></td><td title="Friday, May 17, 2024"><a href="#">17</a></td><td class="rcWeekend" title="Saturday, May 18, 2024"><a href="#">18</a></td>
+				</tr><tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_4" scope="row">21</th><td class="rcWeekend" title="Sunday, May 19, 2024"><a href="#">19</a></td><td title="Monday, May 20, 2024"><a href="#">20</a></td><td title="Tuesday, May 21, 2024"><a href="#">21</a></td><td title="Wednesday, May 22, 2024"><a href="#">22</a></td><td title="Thursday, May 23, 2024"><a href="#">23</a></td><td title="Friday, May 24, 2024"><a href="#">24</a></td><td class="rcWeekend" title="Saturday, May 25, 2024"><a href="#">25</a></td>
+				</tr><tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_5" scope="row">22</th><td class="rcWeekend" title="Sunday, May 26, 2024"><a href="#">26</a></td><td title="Monday, May 27, 2024"><a href="#">27</a></td><td title="Tuesday, May 28, 2024"><a href="#">28</a></td><td title="Wednesday, May 29, 2024"><a href="#">29</a></td><td title="Thursday, May 30, 2024"><a href="#">30</a></td><td title="Friday, May 31, 2024"><a href="#">31</a></td><td class="rcOtherMonth">&nbsp;</td>
+				</tr><tr class="rcRow">
+					<th id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top_rs_6" scope="row">23</th><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td><td class="rcOtherMonth">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><input type="hidden" name="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_SD" id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_SD" value="[]" autocomplete="off"><input type="hidden" name="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_AD" id="ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_AD" value="[[1980,1,1],[2099,12,30],[2024,5,22]]" autocomplete="off">
+</div>
+        </div>
+        
+            <table>
+                
+                <tbody><tr>
+                    <td>
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td valign="top">
+                                    
+                                    &nbsp;
+                                </td>
+                                <td valign="top">
+                                    <div id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_wrapper" class="RadPicker RadPicker_Bootstrap">
+	<input style="visibility:hidden;display:block;float:right;margin:0 0 -1px -1px;width:1px;height:1px;overflow:hidden;border:0;padding:0;" id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date" name="ctl00$Content$Dynamic$CurrentFilter60$rDP_Date" type="text" class="rdfd_ radPreventDecorate" value="2023-05-12" title="Visually hidden input created for functionality purposes."><div id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput_wrapper" class="RadInput RadInput_Bootstrap">
+		<input id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput" name="ctl00$Content$Dynamic$CurrentFilter60$rDP_Date$dateInput" class="riTextBox riEnabled" value="12/05/2023" type="text"><div class="rcSelect">
+			<a title="Open the calendar popup." href="#" id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_popupButton" class="rcCalPopup"></a><div id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar" class="RadCalendar RadCalendar_Bootstrap" style="display:none;">
+				<div class="rcTitlebar">
+					<a id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_FNP" class="t-button rcFastPrev" title="<<" href="#"><span class="t-font-icon t-i-arrow-double-60-left"></span></a><a id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_NP" class="t-button rcPrev" title="<" href="#"><span class="t-font-icon t-i-arrow-left"></span></a><div class="rcNextButtons">
+						<a id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_NN" class="t-button rcNext" title=">" href="#"><span class="t-font-icon t-i-arrow-right"></span></a><a id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_FNN" class="t-button rcFastNext" title=">>" href="#"><span class="t-font-icon t-i-arrow-double-60-right"></span></a>
+					</div><span id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Title" class="rcTitle">May 2024</span>
+				</div><div class="rcMain">
+					<table id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top" class="rcMainTable" border="0">
+						<caption>
+							<span style="display:none;">May 2024</span>
+						</caption><thead>
+							<tr class="rcWeek">
+								<th class="rcViewSel" scope="col">&nbsp;</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_1" title="Monday" scope="col">M</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_2" title="Tuesday" scope="col">T</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_3" title="Wednesday" scope="col">W</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_4" title="Thursday" scope="col">T</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_5" title="Friday" scope="col">F</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_6" title="Saturday" scope="col">S</th><th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_cs_7" title="Sunday" scope="col">S</th>
+							</tr>
+						</thead><tbody>
+							<tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_1" scope="row">18</th><td class="rcOtherMonth" title="Monday, April 29, 2024"><a href="#">29</a></td><td class="rcOtherMonth" title="Tuesday, April 30, 2024"><a href="#">30</a></td><td title="Wednesday, May 01, 2024"><a href="#">1</a></td><td title="Thursday, May 02, 2024"><a href="#">2</a></td><td title="Friday, May 03, 2024"><a href="#">3</a></td><td class="rcWeekend" title="Saturday, May 04, 2024"><a href="#">4</a></td><td class="rcWeekend" title="Sunday, May 05, 2024"><a href="#">5</a></td>
+							</tr><tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_2" scope="row">19</th><td title="Monday, May 06, 2024"><a href="#">6</a></td><td title="Tuesday, May 07, 2024"><a href="#">7</a></td><td title="Wednesday, May 08, 2024"><a href="#">8</a></td><td title="Thursday, May 09, 2024"><a href="#">9</a></td><td title="Friday, May 10, 2024"><a href="#">10</a></td><td class="rcWeekend" title="Saturday, May 11, 2024"><a href="#">11</a></td><td class="rcWeekend" title="Sunday, May 12, 2024"><a href="#">12</a></td>
+							</tr><tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_3" scope="row">20</th><td title="Monday, May 13, 2024"><a href="#">13</a></td><td title="Tuesday, May 14, 2024"><a href="#">14</a></td><td title="Wednesday, May 15, 2024"><a href="#">15</a></td><td title="Thursday, May 16, 2024"><a href="#">16</a></td><td title="Friday, May 17, 2024"><a href="#">17</a></td><td class="rcWeekend" title="Saturday, May 18, 2024"><a href="#">18</a></td><td class="rcWeekend" title="Sunday, May 19, 2024"><a href="#">19</a></td>
+							</tr><tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_4" scope="row">21</th><td title="Monday, May 20, 2024"><a href="#">20</a></td><td title="Tuesday, May 21, 2024"><a href="#">21</a></td><td title="Wednesday, May 22, 2024"><a href="#">22</a></td><td title="Thursday, May 23, 2024"><a href="#">23</a></td><td title="Friday, May 24, 2024"><a href="#">24</a></td><td class="rcWeekend" title="Saturday, May 25, 2024"><a href="#">25</a></td><td class="rcWeekend" title="Sunday, May 26, 2024"><a href="#">26</a></td>
+							</tr><tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_5" scope="row">22</th><td title="Monday, May 27, 2024"><a href="#">27</a></td><td title="Tuesday, May 28, 2024"><a href="#">28</a></td><td title="Wednesday, May 29, 2024"><a href="#">29</a></td><td title="Thursday, May 30, 2024"><a href="#">30</a></td><td title="Friday, May 31, 2024"><a href="#">31</a></td><td class="rcOtherMonth" title="Saturday, June 01, 2024"><a href="#">1</a></td><td class="rcOtherMonth" title="Sunday, June 02, 2024"><a href="#">2</a></td>
+							</tr><tr class="rcRow">
+								<th id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top_rs_6" scope="row">23</th><td class="rcOtherMonth" title="Monday, June 03, 2024"><a href="#">3</a></td><td class="rcOtherMonth" title="Tuesday, June 04, 2024"><a href="#">4</a></td><td class="rcOtherMonth" title="Wednesday, June 05, 2024"><a href="#">5</a></td><td class="rcOtherMonth" title="Thursday, June 06, 2024"><a href="#">6</a></td><td class="rcOtherMonth" title="Friday, June 07, 2024"><a href="#">7</a></td><td class="rcOtherMonth" title="Saturday, June 08, 2024"><a href="#">8</a></td><td class="rcOtherMonth" title="Sunday, June 09, 2024"><a href="#">9</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div><input type="hidden" name="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_SD" id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_SD" value="[]" autocomplete="off"><input type="hidden" name="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_AD" id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_AD" value="[[1990,1,1],[2100,1,1],[2024,5,22]]" autocomplete="off">
+			</div>
+		</div><input id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput_ClientState" name="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput_ClientState" type="hidden" autocomplete="off" value="{&quot;enabled&quot;:true,&quot;emptyMessage&quot;:&quot;&quot;,&quot;validationText&quot;:&quot;2023-05-12-00-00-00&quot;,&quot;valueAsString&quot;:&quot;2023-05-12-00-00-00&quot;,&quot;minDateStr&quot;:&quot;1990-01-01-00-00-00&quot;,&quot;maxDateStr&quot;:&quot;2100-01-01-00-00-00&quot;,&quot;lastSetTextBoxValue&quot;:&quot;12/05/2023&quot;}">
+	</div><input id="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_ClientState" name="ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_ClientState" type="hidden" value="{&quot;minDateStr&quot;:&quot;1990-01-01-00-00-00&quot;,&quot;maxDateStr&quot;:&quot;2100-01-01-00-00-00&quot;}" autocomplete="off">
+</div>
+                                </td>
+                                <td>
+                                    <span id="ctl00_Content_Dynamic_CurrentFilter60_rfvDate" style="color:Red;visibility:hidden;">*</span>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                
+            </tbody></table>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Run Report As</h3>
+                </div>
+                <div class="panel-body">
+                    <a id="ctl00_Content_Dynamic_lbExportPdf" class="btn btn-default" href="javascript:__doPostBack('ctl00$Content$Dynamic$lbExportPdf','')"><span class="fa fa-file-pdf-o"></span> PDF</a>
+                    <a id="ctl00_Content_Dynamic_lbExportCSV" class="btn btn-default" href="javascript:__doPostBack('ctl00$Content$Dynamic$lbExportCSV','')"><span class="fa fa-file-code-o"></span> CSV</a>
+                    <div class="btn-group">
+                        <a id="ctl00_Content_Dynamic_btnExcelExportMain" class="btn btn-default" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnExcelExportMain','')">
+                            <span class="fa fa-file-excel-o"></span>&nbsp;
+                            <span id="ctl00_Content_Dynamic_lblExcelExportMain">Excel (.xlsx)</span></a>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-export-toggle" data-toggle="dropdown">
+                            <span class="fa fa-caret-down"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="ExportButton_Click(this);" id="ctl00_Content_Dynamic_btnExcelExport2003" data-fileext=".xls" data-exporttype="Excel" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnExcelExport2003','')">.xls (97-2003)</a></li>
+                            <li><a onclick="ExportButton_Click(this);" id="ctl00_Content_Dynamic_btnExcelExport2007" data-fileext=".xlsx" data-exporttype="Excel" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnExcelExport2007','')">.xlsx (2007-2019)</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a id="ctl00_Content_Dynamic_btnWordExportMain" class="btn btn-default" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnWordExportMain','')">
+                            <span class="fa fa-file-word-o"></span>&nbsp;
+                            <span id="ctl00_Content_Dynamic_lblWordExportMain">Word (.doc)</span></a>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-export-toggle" data-toggle="dropdown">
+                            <span class="fa fa-caret-down"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="ExportButton_Click(this);" id="ctl00_Content_Dynamic_btnWordExport2003" data-fileext=".doc" data-exporttype="Word" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnWordExport2003','')">.doc (97-2003)</a></li>
+                            <li><a onclick="ExportButton_Click(this);" id="ctl00_Content_Dynamic_btnWordExport2007" data-fileext=".docx" data-exporttype="Word" href="javascript:__doPostBack('ctl00$Content$Dynamic$btnWordExport2007','')">.docx (2007-2019)</a></li>
+                        </ul>
+                    </div>
+                    <a id="ctl00_Content_Dynamic_lbExportBrowser" class="btn btn-default" href="javascript:__doPostBack('ctl00$Content$Dynamic$lbExportBrowser','')"><span class="fa fa-file-o"></span> Browser</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Preview</h3>
+                </div>
+                <div class="panel-body">
+                    <a id="ctl00_Content_Dynamic_lbViewInBrowser" href="javascript:__doPostBack('ctl00$Content$Dynamic$lbViewInBrowser','')"><span class="fa fa-desktop"></span> Quick preview</a> <span id="ctl00_Content_Dynamic_previewTooltip" class="fa fa-info-circle" title="Preview shows up to the first 5 pages and is based on up to 100 records returned. If you need more please export to a format of your choice."></span>
+                </div>
+            </div>
+        </div>
+        
+    </div>    
+    <div id="browserReport" class="row" style="display: none; margin-top: 20px">
+        <div>
+            <button data-report-prev="true" class="btn btn-default" onclick="return false;">Previous</button>
+            <span>Page </span><span data-page-num-display="true"></span> of <span data-page-num-count="true"></span>
+            <button data-report-next="true" class="btn btn-default" onclick="return false;">Next</button>
+        </div>
+        <div>
+            <div id="ctl00_Content_Dynamic_dataTruncatedMessage" class="watermark" style="display: none"><p>Preview</p></div>
+            <canvas style="margin-top: 10px" id="pdfHolder"></canvas>
+        </div>
+        <div>
+            <button data-report-prev="true" class="btn btn-default" onclick="return false;">Previous</button>
+            <span>Page </span><span data-page-num-display="true"></span> of <span data-page-num-count="true"></span>
+            <button data-report-next="true" class="btn btn-default" onclick="return false;">Next</button>
+        </div>
+    </div>
+    
+</div>
+<script type="text/javascript" src="/client/dist/js/pdf.min.js"></script>
+<script type="text/javascript" src="/client/dist/js/pdf.worker.min.js"></script>
+<script type="text/javascript">
+    function ItemChanged(item) {
+        changesMade = true;
+    }
+</script>
+
+<script src="/Controls/Reporting/RptView.js?V=24.107.15242.0" type="text/javascript"></script>
+
+    </div>
+
+                </div>
+            </div>
+            <div id="am-push"></div>
+        </div>
+        <footer id="ctl00_footer" class="footer">
+            <span class="footer-up" onclick="$('html, body').animate({scrollTop:0}, 400);" title="Scroll To Top" style="visibility: hidden;"><span class="fa fa-arrow-circle-up"></span></span>
+            <span id="ctl00_footerText" class="footer-text">Air  Maestro
+                V
+                3.7.2.29-24.107.15242
+                ©
+                2024
+                Avinet Pty. Ltd. All rights reserved. <a href="https://www.avinet.com.au/privacy-policy/" target="_blank">Privacy Policy.</a> Licensed to
+                Svenskt Ambulansflyg</span>
+            <span class="footer-debug">
+                <div id="ctl00_pnlDebug" style="display: block;">
+	
+                        <div id="ctl00_lblServed" cssclass="small_text"></div>
+                    
+</div>
+            </span>
+        </footer>
+        
+        
+        
+    <input name="ctl00$StepNo" type="hidden" id="ctl00_StepNo" value="1" autocomplete="off"><input name="ctl00$StepName" type="hidden" id="ctl00_StepName" value="RptView" autocomplete="off">
+<script type="text/javascript">
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("ctl00_Content_Dynamic_ctl00"));
+var Page_Validators =  new Array(document.getElementById("ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare"), document.getElementById("ctl00_Content_Dynamic_CurrentFilter60_rfvDate"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare = document.all ? document.all["ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare"] : document.getElementById("ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare");
+ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare.controltovalidate = "ctl00_Content_Dynamic_CurrentFilter59_tbTextCompare";
+ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare.enabled = "False";
+ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare.validationGroup = "Filter59";
+ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare.initialvalue = "";
+var ctl00_Content_Dynamic_CurrentFilter60_rfvDate = document.all ? document.all["ctl00_Content_Dynamic_CurrentFilter60_rfvDate"] : document.getElementById("ctl00_Content_Dynamic_CurrentFilter60_rfvDate");
+ctl00_Content_Dynamic_CurrentFilter60_rfvDate.controltovalidate = "ctl00_Content_Dynamic_CurrentFilter60_rDP_Date";
+ctl00_Content_Dynamic_CurrentFilter60_rfvDate.enabled = "False";
+ctl00_Content_Dynamic_CurrentFilter60_rfvDate.validationGroup = "Filter60";
+ctl00_Content_Dynamic_CurrentFilter60_rfvDate.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_Content_Dynamic_CurrentFilter60_rfvDate.initialvalue = "";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+window.__TsmHiddenField = $get('ctl00_RadScriptManager1_TSM');
+(function(id) {
+    var e = document.getElementById(id);
+    if (e) {
+        e.dispose = function() {
+            Array.remove(Page_ValidationSummaries, document.getElementById(id));
+        }
+        e = null;
+    }
+})('ctl00_Content_Dynamic_ctl00');
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadAjaxManager, {"_updatePanels":"","ajaxSettings":[],"clientEvents":{OnRequestStart:"",OnResponseEnd:""},"defaultLoadingPanelID":"","enableAJAX":true,"enableHistory":false,"links":[],"styles":[],"uniqueID":"ctl00$ajaxMan","updatePanelsRenderMode":0}, null, null, $get("ctl00_ajaxMan"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindow, {"_dockMode":false,"_renderMode":2,"behaviors":4,"clientStateFieldID":"ctl00_winAlerts_ClientState","formID":"aspnetForm","height":"650px","iconUrl":"/favicon-16x16.png","keepInScreenBounds":true,"minimizeIconUrl":"/favicon-16x16.png","modal":true,"name":"winAlerts","reloadOnShow":true,"showContentDuringLoad":false,"skin":"Bootstrap","visibleStatusbar":false,"width":"800px"}, {"close":OnClientClose,"show":OnClientShow}, null, $get("ctl00_winAlerts"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindowManager, {"_renderMode":2,"behaviors":36,"clientStateFieldID":"ctl00_RadWindowManager1_ClientState","formID":"aspnetForm","height":"650px","iconUrl":"/favicon-16x16.png","keepInScreenBounds":true,"minimizeIconUrl":"/favicon-16x16.png","name":"RadWindowManager1","showContentDuringLoad":false,"skin":"Bootstrap","visibleStatusbar":false,"width":"800px","windowControls":"['ctl00_winAlerts']"}, {"close":OnClientClose,"show":OnClientShow}, {"child":"ctl00_winAlerts"}, $get("ctl00_RadWindowManager1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadContextMenu, {"_childListElementCssClass":null,"_renderMode":2,"_skin":"Bootstrap","attributes":{},"clientStateFieldID":"ctl00_Clock1_RadClockMenu_ClientState","collapseAnimation":"{\"duration\":450}","defaultGroupSettings":"{\"flow\":0,\"expandDirection\":3}","expandAnimation":"{\"duration\":450}","expandDelay":0,"itemData":[{"items":[{"items":[{"items":[{"value":"H-840"},{"value":"H-780"},{"value":"H-720"},{"value":"H-660"},{"value":"H-600"},{"value":"H-540"},{"value":"H-480"},{"value":"H-420"},{"value":"H-360"},{"value":"H-300"},{"value":"H-240"},{"value":"H-180"},{"value":"H-120"},{"value":"H-60"},{"value":"H00"}],"value":"OS"},{"items":[{"value":"H840"},{"value":"H780"},{"value":"H720"},{"value":"H660"},{"value":"H600"},{"value":"H540"},{"value":"H480"},{"value":"H420"},{"value":"H360"},{"value":"H300"},{"value":"H240"},{"value":"H180"},{"value":"H120"},{"value":"H60"},{"value":"H0"}],"value":"OS"}],"value":"OS"},{"items":[{"value":"M0"},{"value":"M15"},{"value":"M30"},{"value":"M45"}],"value":"OS"},{"value":"OS"}]}],"targets":[{"id":"clock-link","type":1}]}, {"itemClicked":ItemClick}, null, $get("ctl00_Clock1_RadClockMenu"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadToolTip, {"_cssClass":"","_manualCloseButtonText":"Close","_renderMode":2,"autoCloseDelay":0,"clientStateFieldID":"ctl00_QuickFind1_rttHelp_ClientState","formID":"aspnetForm","relativeTo":1,"skin":"Bootstrap","targetControlID":"ctl00_QuickFind1_spanHelp"}, null, null, $get("ctl00_QuickFind1_rttHelp"));
+});
+
+document.getElementById('ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('ctl00_Content_Dynamic_CurrentFilter59_rfvTextCompare'));
+}
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadCalendar, {"_DayRenderChangedDays":{},"_FormatInfoArray":[["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],["January","February","March","April","May","June","July","August","September","October","November","December",""],["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"dddd, d MMMM yyyy h:mm:ss tt","dddd, d MMMM yyyy","h:mm:ss tt","d MMMM","ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","d/MM/yyyy","h:mm tt","yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","MMMM yyyy","AM","PM","/",":",1],"_ViewRepeatableDays":{},"_ViewsHash":{"ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_Top" : [[2024,5,1], 1]},"_calendarWeekRule":0,"_culture":"en-AU","_enableKeyboardNavigation":false,"_enableViewSelector":false,"_firstDayOfWeek":0,"_postBackCall":"__doPostBack(\u0027ctl00$Content$Dynamic$CurrentFilter60$RadcalendarWS\u0027,\u0027@@\u0027)","_rangeSelectionMode":0,"_renderMode":2,"autoPostBack":true,"clientStateFieldID":"ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS_ClientState","enabled":true,"monthYearNavigationSettings":["Today","OK","Cancel","Date is out of range.","False","True","300","1","300","1","False"],"showOtherMonthsDays":false,"skin":"Bootstrap","specialDaysArray":[],"stylesHash":{"DayStyle": ["", ""],"CalendarTableStyle": ["", "rcMainTable"],"OtherMonthDayStyle": ["", "rcOtherMonth"],"TitleStyle": ["", ""],"SelectedDayStyle": ["", "rcSelected"],"SelectorStyle": ["", ""],"DisabledDayStyle": ["", "rcDisabled"],"OutOfRangeDayStyle": ["", "rcOutOfRange"],"WeekendDayStyle": ["", "rcWeekend"],"DayOverStyle": ["", "rcHover"],"FastNavigationStyle": ["", "RadCalendarMonthView RadCalendarMonthView_Bootstrap"],"ViewSelectorStyle": ["", "rcViewSel"]},"useRowHeadersAsSelectors":false}, {"dateSelected":ChangeInputWS,"load":CalendarLoad}, null, $get("ctl00_Content_Dynamic_CurrentFilter60_RadcalendarWS"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadCalendar, {"_DayRenderChangedDays":{},"_FormatInfoArray":[["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],["January","February","March","April","May","June","July","August","September","October","November","December",""],["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"dddd, d MMMM yyyy HH:mm:ss","dddd, d MMMM yyyy","HH:mm:ss","d MMMM","ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","d/MM/yyyy","HH:mm","yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","MMMM yyyy","AM","PM","/",":",1],"_ViewRepeatableDays":{},"_ViewsHash":{"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_Top" : [[2024,5,1], 1]},"_calendarWeekRule":0,"_culture":"en-AU","_enableKeyboardNavigation":false,"_enableViewSelector":false,"_firstDayOfWeek":7,"_postBackCall":"__doPostBack(\u0027ctl00$Content$Dynamic$CurrentFilter60$rDP_Date$calendar\u0027,\u0027@@\u0027)","_rangeSelectionMode":0,"_renderMode":2,"clientStateFieldID":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar_ClientState","enableMultiSelect":false,"enabled":true,"monthYearNavigationSettings":["Today","OK","Cancel","Date is out of range.","False","True","300","1","300","1","False"],"skin":"Bootstrap","specialDaysArray":[],"stylesHash":{"DayStyle": ["", ""],"CalendarTableStyle": ["", "rcMainTable"],"OtherMonthDayStyle": ["", "rcOtherMonth"],"TitleStyle": ["", ""],"SelectedDayStyle": ["", "rcSelected"],"SelectorStyle": ["", ""],"DisabledDayStyle": ["", "rcDisabled"],"OutOfRangeDayStyle": ["", "rcOutOfRange"],"WeekendDayStyle": ["", "rcWeekend"],"DayOverStyle": ["", "rcHover"],"FastNavigationStyle": ["", "RadCalendarMonthView RadCalendarMonthView_Bootstrap"],"ViewSelectorStyle": ["", "rcViewSel"]},"useColumnHeadersAsSelectors":false,"useRowHeadersAsSelectors":false}, null, null, $get("ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadDateInput, {"_displayText":"12/05/2023","_focused":false,"_initialValueAsText":"2023-05-12-00-00-00","_postBackEventReferenceScript":"__doPostBack(\u0027ctl00$Content$Dynamic$CurrentFilter60$rDP_Date\u0027,\u0027\u0027)","_renderMode":2,"_skin":"Bootstrap","_validationText":"2023-05-12-00-00-00","clientStateFieldID":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput_ClientState","dateFormat":"d/MM/yyyy","dateFormatInfo":{"DayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"MonthNames":["January","February","March","April","May","June","July","August","September","October","November","December",""],"AbbreviatedDayNames":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"AbbreviatedMonthNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"AMDesignator":"AM","PMDesignator":"PM","DateSeparator":"/","TimeSeparator":":","FirstDayOfWeek":1,"DateSlots":{"Month":1,"Day":0,"Year":2},"ShortYearCenturyEnd":2029,"TimeInputOnly":false,"MonthYearOnly":false},"displayDateFormat":"d/MM/yyyy","enabled":true,"incrementSettings":{InterceptArrowKeys:true,InterceptMouseWheel:true,Step:1},"maxDate":"2100-01-01-00-00-00","minDate":"1990-01-01-00-00-00","styles":{HoveredStyle: ["", "riTextBox riHover"],InvalidStyle: ["", "riTextBox riError"],DisabledStyle: ["", "riTextBox riDisabled"],FocusedStyle: ["", "riTextBox riFocused"],EmptyMessageStyle: ["", "riTextBox riEmpty"],ReadOnlyStyle: ["", "riTextBox riRead"],EnabledStyle: ["", "riTextBox riEnabled"]}}, null, null, $get("ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadDatePicker, {"_PopupButtonSettings":{ ResolvedImageUrl : "", ResolvedHoverImageUrl : ""},"_animationSettings":{ShowAnimationDuration:300,ShowAnimationType:1,HideAnimationDuration:300,HideAnimationType:1},"_enableKeyboardNavigation":false,"_popupControlID":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_popupButton","_renderMode":2,"clientStateFieldID":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_ClientState","focusedDate":"2024-05-22-00-00-00","maxDate":"2100-01-01-00-00-00","minDate":"1990-01-01-00-00-00"}, null, {"calendar":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_calendar","dateInput":"ctl00_Content_Dynamic_CurrentFilter60_rDP_Date_dateInput"}, $get("ctl00_Content_Dynamic_CurrentFilter60_rDP_Date"));
+});
+
+document.getElementById('ctl00_Content_Dynamic_CurrentFilter60_rfvDate').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('ctl00_Content_Dynamic_CurrentFilter60_rfvDate'));
+}
+//]]>
+</script>
+</form><div class="k-list-container k-popup k-group" id="ctl00_QuickFind1_quickFindInput-list" data-role="popup" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="ctl00_QuickFind1_quickFindInput_listbox" aria-live="polite" data-role="staticlist" role="listbox"></ul></div><div class="k-nodata" style="display:none"><div></div></div></div>
+    <div id="MenuPopup"></div>
+
+
+<div class="loadingPanel" style="background-color: rgba(204, 204, 204, 0.4); width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; text-align: center; z-index: 12; display: none;"><span style="display: inline-block; height: 100%; vertical-align: middle;"></span><img src="/images/loading.gif" alt="Loading..." style="display: inline-block; vertical-align: middle; z-index: 20;"></div></body></html>

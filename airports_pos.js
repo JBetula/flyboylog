@@ -28,8 +28,9 @@ async function importData() {
                 // Insert data into MongoDB
                 await AirportEntry.insertMany(data);
                 console.log('Data imported successfully.');
-            } catch {
-                pass
+            } catch (e) {
+                console.log(e)
+             
             }
             // disconnectDB();
         });
