@@ -11,7 +11,7 @@ Logbook for pilots in KSA
 
 
 ### Airport data
-Airport data is from collected from https://ourairports.com/
+Airport data is collected from https://ourairports.com/
 
 
 
