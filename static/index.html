@@ -20,7 +20,8 @@
 
     <div class="container mt-5">
         <h2>Flight Data</h2>
-        <a href="highscores.html" style="margin-bottom: 20px; margin-top: 20px;" class="btn btn-primary">Hiscore list</a>
+        <a href="highscores.html" style="margin-bottom: 20px; margin-top: 20px;" class="btn btn-primary">Hiscore
+            list</a>
         <!-- Sectors -->
         <!-- Search bar and button -->
         <div class="input-group mb-3">
@@ -90,10 +91,10 @@
         async function fetchData(searchTerm = '') {
             if (!searchTerm) return
             try {
-                const response = await fetch(`http://localhost:3000/api/logbook/logbook?name=${encodeURIComponent(searchTerm)}`, {
+                const response = await fetch(`http://192.168.68.63:3000/api/logbook/logbook?name=${encodeURIComponent(searchTerm)}`, {
                     method: 'GET'
                 });
-                const response2 = await fetch(`http://localhost:3000/api/data/routesByNrOfsectors?name=${encodeURIComponent(searchTerm)}`, {
+                const response2 = await fetch(`http://192.168.68.63:3000/api/data/routesByNrOfsectors?name=${encodeURIComponent(searchTerm)}`, {
                     method: 'GET'
                 });
                 resetMap()
@@ -306,7 +307,7 @@
             const tableBody = document.getElementById('flightDataBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
-            data.logBookEntries .sort((a, b) => {
+            data.logBookEntries.sort((a, b) => {
                 const cmdComparison = a.cmd.localeCompare(b.cmd);
                 if (cmdComparison !== 0) return order === 'asc' ? cmdComparison : -cmdComparison;
 

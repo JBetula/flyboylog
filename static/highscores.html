@@ -44,16 +44,16 @@
         // Replace this function with your actual HTTP request to fetch data
         async function fetchData() {
             try {
-                const response = await fetch(`http://localhost:3000/api/logbook/toplist`, {
+                const response = await fetch(`http://192.168.68.63:3000/api/logbook/toplist`, {
                     method: 'GET'
                 });
                 data = await response.json();
             } catch {
                 pass
             }
-            
+
             // Mock data for demonstration
-            
+
             // Function to populate the table with data
             function populateTable(data) {
                 var tableBody = $("#hiscoreTable tbody");
@@ -64,7 +64,8 @@
                     var row = `<tr>
                         <th scope="row">${index + 1}</th>
                         <td>${player._id}</td>
-                        <td>${player.totalTime.reduce((acc, time) => acc + time, 0)}</td>
+                        <td>${player.totalTime}</td>
+                            // .reduce((acc, time) => acc + time, 0)}</td>
                     </tr>`;
                     tableBody.append(row);
                 });
